@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -25,7 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  
+
 }
 
 #equals {
@@ -47,7 +48,7 @@ body {
 
 #ruler-img {
   height: 1.675rem;
-    width: 1.865rem;
+  width: 1.865rem;
 }
 
 .drop-down {
@@ -55,23 +56,27 @@ body {
   width: 1.875rem;
 }
 
-.display #screen {
-  font-size: 27px;
+.display {
+  display: inline-block;
+  background-color: #f2f2f2;
+  width: 306px;
+  text-align: right;
+}
+
+#screen {
+  display: inline-block;
+  font-size: 25px;
   outline: none;
   text-align: right;
   border: none;
   background-color: #f2f2f2;
 }
 
-#screen::placeholder{
-  color: #000000;
-}
-
 button {
   border: none;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
@@ -81,8 +86,7 @@ button:hover{
   gap: 0.25rem;
 }
 
-.function-row
- {
+.function-row {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
@@ -117,7 +121,7 @@ button:hover {
   height: 20px;
 }
 
-.degree-row .d-btn{
+.degree-row .d-btn {
   font-weight: 500;
   height: 2.5rem;
   border: none;
