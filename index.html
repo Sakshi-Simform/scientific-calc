@@ -4,87 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific  Calculator</title>
+    <title>Scientific Calculator</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/images/calculater.svg">
 </head>
 
 <body>
-        <div class="container" >
-            <div class="display">
-                <input id="screen" type="text" placeholder="0" aria-label="display-area">
-            </div>
+    <div class="container">
 
-            <div class="btns">
-
-                <div class="degree-row" >
-                    <button class="d-btn" aria-label="Degree Mode"><span class="bold-text">DEG</span></button>
-                    <button class="d-btn" aria-label=""><span class="bold-text">F-E</span></button>
-                </div>
-
-
-                <button class="memory m-color" aria-label="Memory Clear">MC</button>
-                <button class="memory m-color" aria-label="Memory Recall">MR</button>
-                <button class="memory" aria-label="Memory Add"><span class="bold-text">M+</span></button>
-                <button class="memory" aria-label="Memory Subtract"><span class="bold-text">M-</span></button>
-                <button class="memory" aria-label="Memory Store"><span class="bold-text">MS</span></button>
-
-                <div class="function-row">
-                    <button class="f-btn" aria-label="trignometry function">
-                        <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img">
-                        <span>Trigonometry</span>
-                        <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
-                    </button>
-
-                    <button class="f-btn" aria-label="function list">
-                        <img src="assets/images/function.svg" alt="function symbol" id="function-img" class="function-img">
-                        <span>Function</span>
-                        <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
-                    </button>
-                </div>
-
-                <button>2<sup>nd</sup></button>
-                <button>π</button>
-                <button>e</button>
-                <button class="btn">C</button>
-                <button><img src="assets/images/backspace.svg" alt="backspace" id="backspace"></button>
-
-                <button>x<sup>2</sup></button>
-                <button class="btn">1/x</button>
-                <button>|x|</button>
-                <button>exp</button>
-                <button>mod</button>
-
-                <button>√</button>
-                <button class="btn">(</button>
-                <button class="btn">)</button>
-                <button>n!</button>
-                <button class="btn">÷</button>
-
-                <button>x<sup>y</sup></button>
-                <button class="btn num" ><span class="bold-text">7</span></button>
-                <button class="btn num"><span class="bold-text">8</span></button>
-                <button class="btn num"><span class="bold-text">9</span></button>
-                <button class="btn">×</button>
-
-                <button>10<sup>x</sup></button>
-                <button class="btn num"><span class="bold-text">4</span></button>
-                <button class="btn num"><span class="bold-text">5</span></button>
-                <button class="btn num"><span class="bold-text">6</span></button>
-                <button class="btn">-</button>
-
-                <button>log</button>
-                <button class="btn num"><span class="bold-text">1</span></button>
-                <button class="btn num"><span class="bold-text">2</span></button>
-                <button class="btn num"><span class="bold-text">3</span></button>
-                <button class="btn">+</button>
-
-                <button>ln</button>
-                <button class="num">+/-</button>
-                <button class="btn num"><span class="bold-text">0</span></button>
-                <button class="btn num">.</button>
-                <button id="equals">=</button>
-            </div>
+        <!-- display-screen -->
+        <div class="display">
+            <span id="screen">0</span>
         </div>
+
+        <div class="btns">
+            <div class="degree-row">
+                <button class="d-btn" aria-label="Degree Mode"><span class="bold-text">DEG</span></button>
+                <button class="d-btn" aria-label="scientific notation"><span class="bold-text">F-E</span></button>
+            </div>
+
+            <!-- memory-buttons -->
+            <button class="memory m-color" aria-label="Memory Clear">MC</button>
+            <button class="memory m-color" aria-label="Memory Recall">MR</button>
+            <button class="memory" aria-label="Memory Add"><span class="bold-text">M+</span></button>
+            <button class="memory" aria-label="Memory Subtract"><span class="bold-text">M-</span></button>
+            <button class="memory" aria-label="Memory Store"><span class="bold-text">MS</span></button>
+
+
+            <div class="function-row">
+                <!-- trignometry-function -->
+
+                <button class="f-btn" aria-label="trignometry function">
+                    <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img">
+                    <span>Trigonometry</span>
+                    <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
+                </button>
+
+                <!-- function-list -->
+                <button class="f-btn" aria-label="function list">
+                    <img src="assets/images/function.svg" alt="function symbol" id="function-img" class="function-img">
+                    <span>Function</span>
+                    <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
+                </button>
+            </div>
+
+            <!-- 2 nd function -->
+            <button>2<sup>nd</sup></button>
+
+            <!-- math-function -->
+            <button>π</button>
+            <button>e</button>
+
+            <!-- clear&backspace btn -->
+            <button class="btn">C</button>
+            <button><img src="assets/images/backspace.svg" alt="backspace" id="backspace"></button>
+
+            <!-- power-function -->
+            <button>x<sup>2</sup></button>
+            <button class="btn">1/x</button>
+            <button>|x|</button>
+            <button>exp</button>
+            <button>mod</button>
+
+            <button>√</button>
+            <button class="btn">(</button>
+            <button class="btn">)</button>
+            <button>n!</button>
+            <button class="btn">÷</button>
+
+            <!-- numbers and operation -->
+            <button>x<sup>y</sup></button>
+            <button class="btn num"><span class="bold-text">7</span></button>
+            <button class="btn num"><span class="bold-text">8</span></button>
+            <button class="btn num"><span class="bold-text">9</span></button>
+            <button class="btn">×</button>
+
+            <button>10<sup>x</sup></button>
+            <button class="btn num"><span class="bold-text">4</span></button>
+            <button class="btn num"><span class="bold-text">5</span></button>
+            <button class="btn num"><span class="bold-text">6</span></button>
+            <button class="btn">-</button>
+
+            <button>log</button>
+            <button class="btn num"><span class="bold-text">1</span></button>
+            <button class="btn num"><span class="bold-text">2</span></button>
+            <button class="btn num"><span class="bold-text">3</span></button>
+            <button class="btn">+</button>
+
+            <button>ln</button>
+            <button class="num">+/-</button>
+            <button class="btn num"><span class="bold-text">0</span></button>
+            <button class="btn num">.</button>
+            <button id="equals">=</button>
+        </div>
+    </div>
 </body>
 </html>
