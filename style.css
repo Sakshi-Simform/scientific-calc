@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: black;
+  max-width: 22rem;
+  height: 100vh;
+  margin: auto;
+  padding: 0.938rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* calculator-content */
+.container {
+  background-color: #f2f2f2;
+  width: 31.25rem;
+  height: 32.25rem;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* equalto-button */
+#equals {
+  background-color: #92caf5;
+}
+
+#equals:hover {
+  background-color: #dbdee0;
+}
+
+/* make numbers bold */
+.bold-text {
+  font-weight: 700;
+}
+
+.function-img {
+  height: 1.275rem;
+  width: 1.875rem;
+}
+
+#ruler-img {
+  height: 1.275rem;
+  width: 1.865rem;
+}
+
+.drop-down {
+  height: 1.875rem;
+  width: 1.875rem;
+}
+
+/* display-area */
+.display {
+  display: inline-block;
+  background-color: #f2f2f2;
+  width: 19.125rem;
+  text-align: right;
+  height: 4.375rem;
+}
+
+#screen {
+  display: inline-block;
+  font-size: 25px;
+  outline: none;
+  text-align: right;
+  border: none;
+  background-color: #f2f2f2;
+}
+
+/* calculator-button */
+button {
+  border: none;
+  background-color:#f2f2f2 ;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.btns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.25rem;
+}
+
+/* function and trignometery buttons */
+.function-row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+.function-row .f-btn {
+  grid-column: span 2;
+}
+
+.btn {
+  border: none;
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.num {
+  background-color: #f8f8f8;
+}
+
+button:hover {
+  background: #d6d6d6;
+}
+
+.degree-row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+#backspace {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.degree-row .d-btn {
+  font-weight: 500;
+  height: 2.5rem;
+  border: none;
+}
+
+.memory {
+  font-weight: 500;
+  height: 2.5rem;
+  border: none;
+}
+
+.function-row .f-btn {
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  height: 2.5rem;
+  border: none;
+}
+
+.m-color {
+  color: rgb(202, 189, 189);
+}
+
+.col-btn{
+    background-color: rgb(232, 233, 235);
+}

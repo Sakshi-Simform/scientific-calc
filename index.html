@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/images/calculater.svg">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- display-screen -->
+        <div class="display">
+            <span id="screen">0</span>
+        </div>
+
+        <div class="btns">
+            <div class="degree-row">
+                <button class="d-btn" aria-label="Degree Mode"><span class="bold-text">DEG</span></button>
+                <button class="d-btn" aria-label="scientific notation"><span class="bold-text">F-E</span></button>
+            </div>
+
+            <!-- memory-buttons -->
+            <button class="memory m-color" aria-label="Memory Clear">MC</button>
+            <button class="memory m-color" aria-label="Memory Recall">MR</button>
+            <button class="memory" aria-label="Memory Add"><span class="bold-text">M+</span></button>
+            <button class="memory" aria-label="Memory Subtract"><span class="bold-text">M-</span></button>
+            <button class="memory" aria-label="Memory Store"><span class="bold-text">MS</span></button>
+
+
+            <div class="function-row">
+                <!-- trignometry-function -->
+
+                <button class="f-btn" aria-label="trignometry function">
+                    <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img">
+                    <span>Trigonometry</span>
+                    <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
+                </button>
+
+                <!-- function-list -->
+                <button class="f-btn" aria-label="function list">
+                    <img src="assets/images/function.svg" alt="function symbol" id="function-img" class="function-img">
+                    <span>Function</span>
+                    <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
+                </button>
+            </div>
+
+            <!-- 2 nd function -->
+            <button aria-label="" class="col-btn">2<sup>nd</sup></button>
+
+            <!-- math-function -->
+            <button aria-label="math pi" class="col-btn">π</button>
+            <button aria-label="Eular's function" class="col-btn">e</button>
+
+            <!-- clear&backspace btn -->
+            <button class="btn col-btn" aria-label="clear">C</button>
+            <button aria-label="backspace" class="col-btn"><img src="assets/images/backspace.svg" alt="backspace" id="backspace"></button>
+
+            <button aria-label="x power 2" class="col-btn">x<sup>2</sup></button>
+            <button class="btn col-btn" aria-label="toggle 1 and x">1/x</button>
+            <button aria-label="module x" class="col-btn">|x|</button>
+            <button aria-label="exponent" class="col-btn">exp</button>
+            <button aria-label="modulus" class="col-btn">mod</button>
+
+            <button aria-label="root function" class="col-btn">√</button>
+            <button class="btn col-btn" aria-label="opening paranthesis">(</button>
+            <button class="btn col-btn" aria-label="closing paranthesis">)</button>
+            <button aria-label="factorial" class="col-btn">n!</button>
+            <button class="btn col-btn" aria-label="division symbol">÷</button>
+
+            <!-- numbers and operation -->
+            <button aria-label="x power y" class="col-btn">x<sup>y</sup></button>
+            <button class="btn num" aria-label="number 7"><span class="bold-text">7</span></button>
+            <button class="btn num" aria-label="number 8"><span class="bold-text">8</span></button>
+            <button class="btn num" aria-label="number 9"><span class="bold-text">9</span></button>
+            <button class="btn col-btn" aria-label="multiply symbol">×</button>
+
+            <button aria-label="10 power x" class="col-btn">10<sup>x</sup></button>
+            <button class="btn num" aria-label="number 4"><span class="bold-text">4</span></button>
+            <button class="btn num" aria-label="number 5"><span class="bold-text">5</span></button>
+            <button class="btn num" aria-label="number 6"><span class="bold-text">6</span></button>
+            <button class="btn col-btn" aria-label="substraction symbol">-</button>
+
+            <button aria-label="logarithm" class="col-btn">log</button>
+            <button class="btn num" aria-label="number 1"><span class="bold-text">1</span></button>
+            <button class="btn num" aria-label="number 2"><span class="bold-text">2</span></button>
+            <button class="btn num" aria-label="number 3"><span class="bold-text">3</span></button>
+            <button class="btn col-btn" aria-label="add symbol">+</button>
+
+            <button aria-label="natural logarithm" class="col-btn">ln</button>
+            <button class="num" aria-label="toggle add and subtract">+/-</button>
+            <button class="btn num" aria-label="number 0"><span class="bold-text">0</span></button>
+            <button class="btn num" aria-label="decimal point">.</button>
+            <button id="equals" aria-label="equal sign">=</button>
+        </div>
+    </div>
+</body>
+</html>
