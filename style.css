@@ -17,6 +17,7 @@ body {
   align-items: center;
 }
 
+/* calculator-content */
 .container {
   background-color: #f2f2f2;
   width: 31.25rem;
@@ -28,6 +29,7 @@ body {
   gap: 2rem;
 }
 
+/* equalto-button */
 #equals {
   background-color: #92caf5;
 }
@@ -36,6 +38,7 @@ body {
   background-color: #dbdee0;
 }
 
+/* make numbers bold */
 .bold-text {
   font-weight: 700;
 }
@@ -55,6 +58,7 @@ body {
   width: 1.875rem;
 }
 
+/* display-area */
 .display {
   display: inline-block;
   background-color: #f2f2f2;
@@ -72,6 +76,7 @@ body {
   background-color: #f2f2f2;
 }
 
+/* calculator-button */
 button {
   border: none;
   background-color:#f2f2f2 ;
@@ -87,6 +92,7 @@ button:hover {
   gap: 0.25rem;
 }
 
+/* function and trignometery buttons */
 .function-row {
   display: grid;
   grid-template-columns: subgrid;
