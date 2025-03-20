@@ -242,7 +242,7 @@ button:hover {
   flex-direction: column;
 }
 
-#toggleHistoryButton {
+#history-btn {
   padding: 7px;
   border: none;
   cursor: pointer;
