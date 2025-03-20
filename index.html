@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/images/calculator.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
 <body>
@@ -20,18 +20,12 @@
 
         <!-- History Container -->
         <div id="historyContainer" class="history-container">
-            <div id="historyList">
-                <ul>
-
-                    </li>
-            </div>
+            <div id="historyList"></div>
         </div>
         <!-- Display Screen -->
         <div class="display" tabindex="0">
             <span id="screen" >0</span>
         </div>
-
-
 
         <div class="btns">
             <div class="function-row">
@@ -53,26 +47,29 @@
                 <!-- trignometry and function -->
                 <div class="trignometry">
                     <button class="f-btn" aria-label="Trigonometry Functions">
-                        <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img" />
+                        <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img">
                         <span>Trigonometry</span>
-                        <img src="assets/images/drop-down.svg" class="drop-down">
+                        <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
                         <div class="dropdown-content">
-                            <a href="#" class="sin-btn">sin</a>
-                            <a href="#" class="cos-btn">cos</a>
-                            <a href="#" class="tan-btn">tan</a>
+                            <ul>
+                                <li class="sin-btn">sin</li>
+                                <li class="cos-btn">cos</li>
+                                <li class="tan-btn">tan</li>
+                            </ul>
                         </div>
                     </button>
                 </div>
 
                 <div class="function">
                     <button class="f-btn1" aria-label="Function List">
-                        <img src="assets/images/function.svg" alt="function symbol" id="function-img"
-                            class="function-img" />
+                        <img src="assets/images/function.svg" alt="function symbol" id="function-img" class="function-img">
                         <span>Function</span>
-                        <img src="assets/images/drop-down.svg" class="drop-down">
+                        <img src="assets/images/drop-down.svg" alt="drop-down arrow" class="drop-down">
                         <div class="dropdown-content">
-                            <a href="#" class="floor-btn">floor</a>
-                            <a href="#" class="ceil-btn">ceil</a>
+                            <ul>
+                                <li class="floor-btn">floor</li>
+                                <li class="ceil-btn">ceil</li>
+                            </ul>
                         </div>
                     </button>
                 </div>
@@ -118,7 +115,7 @@
 
                 <button class="logn-btn" aria-label="natural logarithm">ln</button>
                 <button class="num change-sign-btn" aria-label="toggle add and subtract">+/-</button>
-                <button class="btn num" ria-label="number 0"><span class="bold-text">0</span></button>
+                <button class="btn num" aria-label="number 0"><span class="bold-text">0</span></button>
                 <button class="btn num" aria-label="decimal point">.</button>
                 <button id="equals" aria-label="equal sign">=</button>
             </div>
