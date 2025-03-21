@@ -11,18 +11,35 @@ export const Calculator = (function () {
     Calculator.prototype.appendValue = function (value) {
         const currentText = this.screen.textContent;
     
-        const operators = ['+', '-', '×', '÷', '.'];
+        const operators = ['+', '-', '×', '÷' ,'.'];
         const lastChar = currentText.slice(-1);
-        if (operators.includes(value) && operators.includes(lastChar)) {
-            alert('Error');
+
+        if (this.calculationDone) {
+            this.screen.textContent = ''; 
+            this.calculationDone = false; 
+        }
+    
+        // Check for consecutive operators
+        if (operators.includes(lastChar) && operators.includes(value)) {
+            alert("Error");
+            return;
+        }
+    
+        // Prevent multiple dots in the same number
+        if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\/]/).pop().includes('.'))) {
+            alert("cannot enter multiple decimal value");
+            return;
         }
     
         if (this.screen.textContent === '0' && !operators.includes(value)) {
             this.screen.textContent = value;
         } else {
-            this.screen.textContent += value;
+            this.screen.textContent += value; 
         }
     };
+
+
+
 
     // Basic arithmetic operations
     Calculator.prototype.add = function () {
@@ -73,10 +90,9 @@ export const Calculator = (function () {
 
             // Update the screen with the result
             this.screen.textContent = evaluatedResult;
-
+            this.calculationDone = true;
         } catch (error) {
             alert('Error');
-            console.error("Error evaluating expression:", error);
         }
     };
 
