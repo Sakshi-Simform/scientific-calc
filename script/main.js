@@ -1,10 +1,48 @@
 // Importing  modules
-import { Calculator } from './calculator.js'; 
+import { Calculator } from './calculator.js';
 import { handleKeyPress } from './keypressHandler.js';
 
 
 // Initialize the calculator
 const calculator = new Calculator('screen');
+const dropdownBtn = document.getElementById("dropdownBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+// Toggle dropdown visibility
+dropdownBtn.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent closing when clicking the button
+    dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function () {
+    dropdownMenu.style.display = "none";
+});
+
+// Prevent closing when clicking inside dropdown
+dropdownMenu.addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
+const dropdownBtn1 = document.getElementById("dropdownBtn1");
+const dropdownMenu1 = document.getElementById("dropdownMenu1");
+
+// Toggle dropdown visibility
+dropdownBtn1.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent closing when clicking the button
+    dropdownMenu1.style.display = dropdownMenu1.style.display === "block" ? "none" : "block";
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function () {
+    dropdownMenu1.style.display = "none";
+});
+
+// Prevent closing when clicking inside dropdown
+dropdownMenu1.addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
 
 
 // connect to calculator
