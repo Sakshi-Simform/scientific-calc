@@ -21,7 +21,7 @@ export const Calculator = (function () {
     
         // Check for consecutive operators
         if (operators.includes(lastChar) && operators.includes(value)) {
-            alert("Error");
+           // alert("Error");
             return;
         }
     
