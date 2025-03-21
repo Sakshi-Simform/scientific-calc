@@ -11,11 +11,10 @@ export const Calculator = (function () {
     Calculator.prototype.appendValue = function (value) {
         const currentText = this.screen.textContent;
     
-        const operators = ['+', '-', '*', '/', '.'];
+        const operators = ['+', '-', '×', '÷', '.'];
         const lastChar = currentText.slice(-1);
         if (operators.includes(value) && operators.includes(lastChar)) {
-            this.screen.textContent = 'Error'; 
-            return;
+            alert('Error');
         }
     
         if (this.screen.textContent === '0' && !operators.includes(value)) {
@@ -66,6 +65,7 @@ export const Calculator = (function () {
         let expression = this.screen.textContent
             .replace('×', '*')
             .replace('÷', '/')
+            .replace(/π/g, Math.PI);
 
         try {
             // Evaluate the expression
@@ -75,20 +75,21 @@ export const Calculator = (function () {
             this.screen.textContent = evaluatedResult;
 
         } catch (error) {
-            this.screen.textContent = 'Error';
+            alert('Error');
             console.error("Error evaluating expression:", error);
         }
     };
 
     // Pi
     Calculator.prototype.appendPi = function () {
-        const pi = Math.PI.toFixed(8);
+        const piSymbol = 'π'; 
         if (this.screen.textContent === '0') {
-            this.appendValue(pi);
+            this.appendValue(piSymbol);
         } else {
-            this.appendValue(`*${pi}`);
+            this.appendValue(`${piSymbol}`);
         }
-    }
+    };
+    
 
     return Calculator;
 })();
