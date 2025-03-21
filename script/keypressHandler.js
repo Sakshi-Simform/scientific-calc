@@ -19,5 +19,7 @@ export function handleKeyPress(event) {
         this.backspace(); 
     } else if (key === 'Escape') {
         this.clearDisplay(); 
+    }else if (key.toLowerCase() === 'c') {
+        this.clearDisplay();
     }
 }
