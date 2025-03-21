@@ -20,6 +20,7 @@ body {
   background-color: #f2f2f2;
   max-height: 641px;
   padding: 0.5rem;
+  border-radius: 1rem;
 }
 
 /* equalto-button */
@@ -31,6 +32,13 @@ body {
   background-color: #dbdee0;
 }
 
+.num{
+  font-size: 1em;
+}
+
+.operator{
+  font-size: 1.2em;
+}
 
 /* make numbers bold */
 .bold-text {
@@ -63,7 +71,7 @@ body {
 
 #screen {
   display: inline-block;
-  font-size: 25px;
+  font-size: 31px;
   outline: none;
   text-align: right;
   border: none;
@@ -90,6 +98,7 @@ button:hover {
   grid-template-columns: repeat(5, 70px);
   grid-template-rows: repeat(7, 50px);
   margin-top: 0.55em;
+  gap: 0.4rem;
 }
 
 .f-btn {
