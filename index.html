@@ -32,44 +32,45 @@
                 <div class="function-row">
                     <!-- Memory and History buttons -->
                     <div class="degree-row">
-                        <button class="d-btn" aria-label="Degree Mode" id="deg-btn"><span
+                        <button class="d-btn c-btn" aria-label="Degree Mode" id="deg-btn"><span
                                 class="bold-text">DEG</span></button>
-                        <button class="d-btn fe-btn" aria-label=""><span class="bold-text">F-E</span></button>
+                        <button class="d-btn fe-btn c-btn" aria-label=""><span class="bold-text">F-E</span></button>
                     </div>
 
                     <!-- Memory buttons -->
-                    <button class="memory m-color mc-btn" aria-label="Memory Clear">MC</button>
-                    <button class="memory m-color mr-btn" aria-label="Memory Recall">MR</button>
-                    <button class="memory mplus-btn" aria-label="Memory Add"><span class="bold-text">M+</span></button>
-                    <button class="memory mminus-btn" aria-label="Memory Subtract"><span
+                    <button class="memory m-color mc-btn c-btn" aria-label="Memory Clear">MC</button>
+                    <button class="memory m-color mr-btn c-btn" aria-label="Memory Recall">MR</button>
+                    <button class="memory mplus-btn c-btn" aria-label="Memory Add"><span
+                            class="bold-text">M+</span></button>
+                    <button class="memory mminus-btn c-btn" aria-label="Memory Subtract"><span
                             class="bold-text">M-</span></button>
-                    <button class="memory ms-btn" aria-label="Memory Store"><span class="bold-text">MS</span></button>
+                    <button class="memory ms-btn c-btn" aria-label="Memory Store"><span
+                            class="bold-text">MS</span></button>
 
                     <!-- trignometry and function -->
                     <div class="trignometry">
-                        <button class="f-btn" aria-label="Trigonometry Functions">
-                            <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img">
-                            <span>Trigonometry</span>
+                        <button class="f-btn c-btn" id="dropdownBtn" aria-label="Trigonometry Functions">
+                            <img src="assets/images/ruler.svg" alt="ruler" id="ruler-img"> Trignometry
                             <img src="assets/images/drop-down.svg" class="drop-down" alt="drop-down arrow">
-                            <span class="dropdown-content">
-                                <a href="#" class="sin-btn">sin</a>
-                                <a href="#" class="cos-btn">cos</a>
-                                <a href="#" class="tan-btn">tan</a>
-                            </span>
                         </button>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <div class="dropdown-item">Sin</div>
+                            <div class="dropdown-item">Cos</div>
+                            <div class="dropdown-item">tan</div>
+                        </div>
                     </div>
 
                     <div class="function">
-                        <button class="f-btn1" aria-label="Function List">
+                        <button class="f-btn1 c-btn" id="dropdownBtn1" aria-label="Function List">
                             <img src="assets/images/function.svg" alt="function symbol" id="function-img"
                                 class="function-img">
-                            <span>Function</span>
+                            Functions
                             <img src="assets/images/drop-down.svg" class="drop-down" alt="drop-down arrow">
-                            <span class="dropdown-content">
-                                <a href="#" class="floor-btn">floor</a>
-                                <a href="#" class="ceil-btn">ceil</a>
-                            </span>
                         </button>
+                        <div class="dropdown-menu" id="dropdownMenu1">
+                            <div class="dropdown-item">floor</div>
+                            <div class="dropdown-item">ceil</div>
+                        </div>
                     </div>
 
                 </div>
