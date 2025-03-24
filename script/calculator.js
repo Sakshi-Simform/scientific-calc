@@ -12,6 +12,11 @@ export class Calculator {
         const operators = ['+', '-', '×', '÷', '.'];
         const lastChar = currentText.slice(-1);
 
+        if(currentText.length >= 20){
+            alert("error");
+            return
+        }
+
         if (this.calculationDone) {
             this.screen.textContent = '';
             this.calculationDone = false;
