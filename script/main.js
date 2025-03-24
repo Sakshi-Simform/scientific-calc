@@ -1,7 +1,6 @@
 // Importing  modules
 import { Calculator } from './calculator.js';
-import { handleKeyPress } from './keypressHandler.js';
-
+import { handleKeyPress } from './keyboardEvents.js';
 
 // Initialize the calculator
 const calculator = new Calculator('screen');
@@ -43,8 +42,6 @@ dropdownMenu1.addEventListener("click", function (event) {
     event.stopPropagation();
 });
 
-
-
 // connect to calculator
 calculator.initializeButtons = function (buttonClass) {
     const numberButtons = document.querySelectorAll(`${buttonClass}.num`);
@@ -76,5 +73,3 @@ calculator.initializeButtons = function (buttonClass) {
 
 // Initialize buttons for the calculator
 calculator.initializeButtons('.btn');
-
-
