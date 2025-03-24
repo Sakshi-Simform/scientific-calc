@@ -1,105 +1,111 @@
-export const Calculator = (function () {
-
-    function Calculator(screenId) {
+export class Calculator {
+    constructor(screenId) {
         this.screen = document.getElementById(screenId);
         if (!this.screen) {
             throw new Error(`Screen element with id "${screenId}" not found.`);
         }
+        this.calculationDone = false;
     }
 
-    Calculator.prototype.appendValue = function (value) {
+    appendValue(value) {
         const currentText = this.screen.textContent;
-    
-        const operators = ['+', '-', '×', '÷' ,'.'];
+        const operators = ['+', '-', '×', '÷', '.'];
         const lastChar = currentText.slice(-1);
 
         if (this.calculationDone) {
-            this.screen.textContent = ''; 
-            this.calculationDone = false; 
+            this.screen.textContent = '';
+            this.calculationDone = false;
         }
-    
-        // Check for consecutive operators
+
         if (operators.includes(lastChar) && operators.includes(value)) {
             return;
         }
-    
-        // Prevent multiple dots in the same number
+
         if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\/]/).pop().includes('.'))) {
-            alert("cannot enter multiple decimal value");
+            alert("Cannot enter multiple decimal values");
             return;
         }
-    
+
         if (this.screen.textContent === '0' && !operators.includes(value)) {
             this.screen.textContent = value;
         } else {
-            this.screen.textContent += value; 
+            this.screen.textContent += value;
         }
-    };
+    }
 
-    // Basic arithmetic operations
-    Calculator.prototype.add = function () {
+    add() {
         this.appendValue('+');
-    };
+    }
 
-    Calculator.prototype.subtract = function () {
+    subtract() {
         this.appendValue('-');
-    };
+    }
 
-    Calculator.prototype.multiply = function () {
+    multiply() {
         this.appendValue('×');
-    };
+    }
 
-    Calculator.prototype.divide = function () {
+    divide() {
         this.appendValue('÷');
-    };
+    }
 
-    Calculator.prototype.addOpenParenthesis = function () {
+    addOpenParenthesis() {
         this.appendValue('(');
-    };
+    }
 
-    Calculator.prototype.addCloseParenthesis = function () {
+    addCloseParenthesis() {
         this.appendValue(')');
-    };
+    }
 
-    // Backspace
-    Calculator.prototype.backspace = function () {
+    backspace() {
         let currentValue = this.screen.textContent;
         this.screen.textContent = currentValue.slice(0, -1) || '0';
-    };
+    }
 
-    // Clear 
-    Calculator.prototype.clearDisplay = function () {
+    clearDisplay() {
         this.screen.textContent = '0';
-    };
+    }
 
-    // Evaluate result 
-    Calculator.prototype.result = function () {
+    result() {
         let expression = this.screen.textContent
             .replace('×', '*')
             .replace('÷', '/')
             .replace(/π/g, Math.PI);
 
         try {
-            // Evaluate the expression
             const evaluatedResult = eval(expression);
-
-            // Update the screen with the result
             this.screen.textContent = evaluatedResult;
             this.calculationDone = true;
         } catch (error) {
             alert('Error');
         }
-    };
+    }
 
-    // Pi
-    Calculator.prototype.appendPi = function () {
-        const piSymbol = 'π'; 
+    appendPi() {
+        const piSymbol = 'π';
         if (this.screen.textContent === '0') {
             this.appendValue(piSymbol);
         } else {
             this.appendValue(`${piSymbol}`);
         }
-    };
-    
-    return Calculator;
-})();
+    }
+
+    // Dropdown functionality
+    setupDropdown(btnId, menuId) {
+        const dropdownBtn = document.getElementById(btnId);
+        const dropdownMenu = document.getElementById(menuId);
+
+        dropdownBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        document.addEventListener("click", function () {
+            dropdownMenu.style.display = "none";
+        });
+
+        dropdownMenu.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    }
+}
