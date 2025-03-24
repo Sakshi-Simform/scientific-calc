@@ -80,7 +80,7 @@ body {
   background-color: #f2f2f2;
   overflow:auto;
   white-space: nowrap;
-  max-width: 300px;
+  max-width: 360px;
 
 }
  #screen::-webkit-scrollbar{
