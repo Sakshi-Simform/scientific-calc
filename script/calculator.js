@@ -31,6 +31,7 @@ export class Calculator {
         } else {
             this.screen.textContent += value;
         }
+        this.screen.scrollTo(this.screen.offsetWidth,0)
     }
 
     add() {
