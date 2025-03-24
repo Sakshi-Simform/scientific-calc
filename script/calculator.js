@@ -7,7 +7,6 @@ export const Calculator = (function () {
         }
     }
 
-
     Calculator.prototype.appendValue = function (value) {
         const currentText = this.screen.textContent;
     
@@ -36,9 +35,6 @@ export const Calculator = (function () {
             this.screen.textContent += value; 
         }
     };
-
-
-
 
     // Basic arithmetic operations
     Calculator.prototype.add = function () {
@@ -105,6 +101,5 @@ export const Calculator = (function () {
         }
     };
     
-
     return Calculator;
 })();
