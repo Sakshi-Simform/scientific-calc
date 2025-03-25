@@ -13,7 +13,7 @@ export class Calculator {
         const lastChar = currentText.slice(-1);
 
         if(currentText.length >= 20){
-            alert("error");
+            alert("cannot exceed more than 20 input values");
             return
         }
 
