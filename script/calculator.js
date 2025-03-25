@@ -12,7 +12,7 @@ export class Calculator {
         const operators = ['+', '-', '×', '÷', '.'];
         const lastChar = currentText.slice(-1);
 
-        if(currentText.length >= 20){
+        if (currentText.length >= 20) {
             alert("cannot exceed more than 20 input values");
             return
         }
@@ -36,7 +36,7 @@ export class Calculator {
         } else {
             this.screen.textContent += value;
         }
-        this.screen.scrollTo(this.screen.offsetWidth,0)
+        this.screen.scrollTo(this.screen.offsetWidth, 0)
     }
 
     add() {
@@ -72,11 +72,62 @@ export class Calculator {
         this.screen.textContent = '0';
     }
 
+    tenPowerX() {
+        this.appendValue('10^');
+    }
+
+    xpowery() {
+        if (!this.screen.textContent.includes('^')) {
+            this.appendValue('^');
+        }
+    };
+
+    square() {
+        if (!this.screen.textContent.includes('^')) {
+            this.appendValue('^2');
+        }
+    };
+
+    sqrt() {
+        this.appendValue('sqrt(');
+    };
+
+    log() {
+        this.screen.textContent = 'log(';
+    };
+
+    ln() {
+        this.screen.textContent = 'ln(';
+    };
+
+    absoluteValue() {
+        this.appendValue('abs(');
+    }
+
+    factorial(n) {
+        if (n < 0) return "Error";
+        if (n === 0 || n === 1) return 1;
+        let result = 1;
+        for (let i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
     result() {
         let expression = this.screen.textContent
             .replace('×', '*')
             .replace('÷', '/')
-            .replace(/π/g, Math.PI);
+            .replace('%', '%')
+            .replace(/π/g, Math.PI)
+            .replace('10^', '10**')
+            .replace('^', '**')
+            .replace('log', 'Math.log10')
+            .replace('ln', 'Math.log')
+            .replace('abs', 'Math.abs')
+            .replace('sqrt', 'Math.sqrt');
+
+        expression = expression.replace(/(\d+)!/g, (match, num) => this.factorial(parseInt(num)));
 
         try {
             const evaluatedResult = eval(expression);
@@ -95,6 +146,15 @@ export class Calculator {
             this.appendValue(`${piSymbol}`);
         }
     }
+
+    reciprocal() {
+        const x = parseFloat(this.screen.textContent);
+        if (isNaN(x) || x === 0) {
+            this.screen.textContent = 'Error';
+        } else {
+            this.screen.textContent = (1 / x);
+        }
+    };
 
     // Dropdown functionality
     setupDropdown(btnId, menuId) {
