@@ -7,11 +7,9 @@
 
 body {
   background-color: #000000;
-  color: black;
   max-width: 22rem;
   height: 100vh;
   margin: auto;
-  padding: 0.938rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,13 +18,10 @@ body {
 /* calculator-content */
 .container {
   background-color: #f2f2f2;
-  width: 31.25rem;
-  height: 32.25rem;
-  padding-left: 0.35rem;
-  padding-right: 0.35rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  max-height: 641px;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  max-width: 600px;
 }
 
 /* equalto-button */
@@ -38,19 +33,28 @@ body {
   background-color: #dbdee0;
 }
 
+.num{
+  font-size: 1em;
+}
+
+.operator{
+  font-size: 1.2em;
+}
+
 /* make numbers bold */
 .bold-text {
   font-weight: 700;
 }
 
 .function-img {
-  height: 1.275rem;
-  width: 1.875rem;
+  height: 1.375rem;
+  width: 1.475rem;
 }
 
 #ruler-img {
-  height: 1.275rem;
-  width: 1.865rem;
+  height: 1.375rem;
+  width: 1.465rem;
+  margin-top: -0.43rem;
 }
 
 .drop-down {
@@ -62,50 +66,85 @@ body {
 .display {
   display: inline-block;
   background-color: #f2f2f2;
-  width: 19.125rem;
+  width: 98%;
+  height: 5.7rem;
   text-align: right;
-  height: 4.375rem;
 }
 
 #screen {
   display: inline-block;
-  font-size: 25px;
+  font-size: 31px;
   outline: none;
   text-align: right;
   border: none;
   background-color: #f2f2f2;
+  overflow:auto;
+  white-space: nowrap;
+  max-width: 360px;
+
 }
+ #screen::-webkit-scrollbar{
+  display: none;
+ }
+
+ #screen{
+  scrollbar-width: none;
+ }
 
 /* calculator-button */
 button {
   border: none;
-  background-color:#f2f2f2 ;
 }
 
 button:hover {
   cursor: pointer;
 }
 
-.btns {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.25rem;
+.c-btn{
+  background-color: #f2f2f2;
 }
-
 /* function and trignometery buttons */
 .function-row {
   display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
+  grid-template-columns: repeat(5, 70px);
 }
 
-.function-row .f-btn {
-  grid-column: span 2;
+.calculator-btn {
+  display: grid;
+  grid-template-columns: repeat(5, 70px);
+  grid-template-rows: repeat(7, 50px);
+  margin-top: 0.55em;
+  gap: 0.4rem;
+}
+
+.f-btn {
+  display: flex;
+  align-items: center;
+  margin-left: 1.55em;
+  width: 106px;
+  margin-top: 0.5em;
+  gap: 0.2em;
+}
+
+.trignometry {
+  grid-column: 1/3;
+}
+
+.f-btn1 {
+  display: flex;
+  align-items: center;
+  margin-left: 1.55em;
+  width: 90px;
+  margin-top: 0.5em;
+  gap: 0.2em;
+}
+
+.function {
+  grid-column: 3/5;
+
 }
 
 .btn {
-  border: none;
-  height: 2.5rem;
   cursor: pointer;
 }
 
@@ -124,14 +163,15 @@ button:hover {
 }
 
 #backspace {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
 }
 
 .degree-row .d-btn {
   font-weight: 500;
   height: 2.5rem;
   border: none;
+  margin-left: 0.5rem;
 }
 
 .memory {
@@ -140,20 +180,106 @@ button:hover {
   border: none;
 }
 
-.function-row .f-btn {
-  font-size: 0.75rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  height: 2.5rem;
-  border: none;
-}
-
 .m-color {
-  color: rgb(202, 189, 189);
+  color: rgb(150, 146, 146);
 }
 
-.col-btn{
-    background-color: rgb(232, 233, 235);
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  list-style: none;
+  overflow: hidden;
+}
+
+.dropdown-content li {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.dropdown-content li:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.f-btn:hover {
+  background-color: #d6d6d6;
+}
+
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+.dropdown-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.drop-down {
+  height: 26px;
+}
+
+/* History container styles */
+.history-container {
+  display: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+
+.history-container.show {
+  display: block;
+}
+
+#historyList {
+  max-height: 40px;
+  overflow-y: auto;
+  margin-top: 10px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+
+#history-btn {
+  padding: 7px;
+  border: none;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+#toggleHistoryButton:hover {
+  background-color: #b7c7b7;
 }
