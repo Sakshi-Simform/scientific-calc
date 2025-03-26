@@ -16,13 +16,14 @@
     <main class="calculator">
         <div class="container">
 
-            <!-- Button to Show History -->
             <button id="toggleHistoryButton" aria-label="history-button"><i class="fa fa-history"></i></button>
 
-            <!-- History Container -->
+            <!-- History Container-->
             <div id="historyContainer" class="history-container">
                 <div id="historyList"></div>
+                <button id="closeHistoryBtn">Close</button>
             </div>
+
             <!-- Display Screen -->
             <div class="display" tabindex="0">
                 <span id="screen">0</span>
@@ -35,7 +36,8 @@
                         <button class="d-btn c-btn" aria-label="Degree Mode" id="deg-btn"><span
                                 class="bold-text">DEG</span></button>
                         <button class="d-btn fe-btn c-btn"><span class="bold-text">F-E</span></button>
-                        <button class="clear-history-btn" aria-label="clear-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button class="clear-history-btn" aria-label="clear-btn"><i class="fa fa-trash"
+                                aria-hidden="true"></i></button>
                     </div>
 
                     <!-- Memory buttons -->
@@ -55,9 +57,9 @@
                             <img src="assets/images/drop-down.svg" class="drop-down" alt="drop-down arrow">
                         </button>
                         <div class="dropdown-menu" id="dropdownMenu">
-                            <div class="dropdown-item sin-btn">sin</div>
-                            <div class="dropdown-item cos-btn">cos</div>
-                            <div class="dropdown-item tan-btn">tan</div>
+                            <div class="dropdown-item sin-btn" value="sin"> sin</div>
+                            <div class="dropdown-item cos-btn" value="cos">cos</div>
+                            <div class="dropdown-item tan-btn" value="tan">tan</div>
                         </div>
                     </div>
 
@@ -126,5 +128,4 @@
     <!-- Link to External JS File -->
     <script type="module" src="script/main.js"></script>
 </body>
-
 </html>
