@@ -18,7 +18,7 @@ body {
 /* calculator-content */
 .container {
   background-color: #f2f2f2;
-  max-height: 641px;
+  max-height: auto;
   padding: 0.5rem;
   border-radius: 1rem;
   max-width: 600px;
