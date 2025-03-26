@@ -141,51 +141,63 @@ export class Calculator {
     result() {
         let expression = this.screen.textContent;
 
-        if (expression.startsWith('floor(')) {
-            const value = parseFloat(expression.slice(6, -1)); 
-            this.screen.textContent = Math.floor(value);
-        } else if (expression.startsWith('ceil(')) {
-            const value = parseFloat(expression.slice(5, -1)); 
-            this.screen.textContent = Math.ceil(value);
-        } else {
-            expression = expression.replace('×', '*')
-                .replace('÷', '/')
-                .replace('%', '%')
-                .replace('/π/g', 'Math.PI')
-                .replace('10^', '10**')
-                .replace('^', '**')
-                .replace('log', 'Math.log10')
-                .replace('ln', 'Math.log')
-                .replace('abs', 'Math.abs')
-                .replace('e', 'Math.E')
-                .replace('sqrt', 'Math.sqrt');
+        expression = expression.replace('×', '*')
+            .replace('÷', '/')
+            .replace('%', '%')
+            .replace('/π/g', 'Math.PI')
+            .replace('10^', '10**')
+            .replace('^', '**')
+            .replace('log', 'Math.log10')
+            .replace('ln', 'Math.log')
+            .replace('abs', 'Math.abs')
+            // .replace('e', 'Math.E')
+            .replace(/\be\b/g, "Math.E")
+            .replace('sqrt', 'Math.sqrt')
+            // .replace(/\bfloor\(/g, "Math.ceil(")
+            .replace(/\bfloor\(/g, "Math.floor(")   
+            .replace(/\bceil\(/g, "Math.ceil(");
 
-                if(!this.isDegreeMode){
-                    expression = expression.replace('sin', 'Math.sin')
-                    .replace('cos', 'Math.cos')
-                    .replace('tan', 'Math.tan')
-                    
-                }
-                else{
-                    Math.sindeg = (x) => Math.sin((Math.PI / 180) * x);
-                    Math.cosdeg = (x) => Math.cos((Math.PI / 180) * x);
-                    Math.tandeg = (x) => Math.tan((Math.PI / 180) * x);
-                expression = expression.replace(/\bsin\(/g, "Math.sindeg(");
-                expression = expression.replace(/\bcos\(/g, "Math.cosdeg(");
-                expression = expression.replace(/\btan\(/g, "Math.tandeg(");
-                }
+           
+            console.log(expression)
 
-    
-            try {
-                const evaluatedResult = eval(expression);
-                this.screen.textContent = evaluatedResult;
-                this.calculationDone = true;
-                saveHistory(`${expression} = ${evaluatedResult}`);
-            } catch (error) {
-                alert('Error');
-            }
+        if (!this.isDegreeMode) {
+            expression = expression.replace('sin', 'Math.sin')
+                .replace('cos', 'Math.cos')
+                .replace('tan', 'Math.tan')
+                .replace('asin', 'Math.asin')
+                .replace('acos', 'Math.acos')
+                .replace('atan', 'Math.atan')
+
+        }
+        else {
+            Math.sindeg = (x) => Math.sin((Math.PI / 180) * x);
+            Math.cosdeg = (x) => Math.cos((Math.PI / 180) * x);
+            Math.tandeg = (x) => Math.tan((Math.PI / 180) * x);
+            expression = expression.replace(/\bsin\(/g, "Math.sindeg(");
+            expression = expression.replace(/\bcos\(/g, "Math.cosdeg(");
+            expression = expression.replace(/\btan\(/g, "Math.tandeg(");
+
+            Math.asindeg = (x) => (180 / Math.PI) * Math.asin(x);
+            Math.acosdeg = (x) => (180 / Math.PI) * Math.acos(x);
+            Math.atandeg = (x) => (180 / Math.PI) * Math.atan(x);
+            expression = expression.replace(/\basin\(/g, "Math.asin(");
+            expression = expression.replace(/\bacos\(/g, "Math.acos(");
+            expression = expression.replace(/\batan\(/g, "Math.atan(");
+        }
+
+
+        try {
+            const evaluatedResult = eval(expression);
+            this.screen.textContent = evaluatedResult;
+            this.calculationDone = true;
+            saveHistory(`${expression} = ${evaluatedResult}`);
+        } catch (error) {
+            alert('Error');
         }
     }
+
+
+
 
     appendPi() {
         const piSymbol = 'π';
@@ -208,38 +220,38 @@ export class Calculator {
     setupDropdown(btnId, menuId) {
         const dropdownBtn = document.getElementById(btnId);
         const dropdownMenu = document.getElementById(menuId);
-    
+
         if (!dropdownBtn || !dropdownMenu) {
-          console.error('Dropdown button or menu not found!');
-          return;
+            console.error('Dropdown button or menu not found!');
+            return;
         }
-    
+
         dropdownBtn.addEventListener("click", (event) => {
             console.log("dropdown")
-          event.stopPropagation();  
-          dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block"; // Toggle visibility
+            event.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block"; // Toggle visibility
         });
-    
+
         // Hide dropdown
         document.addEventListener("click", () => {
-          dropdownMenu.style.display = "none";
+            dropdownMenu.style.display = "none";
         });
-    
+
         // Prevent closing the dropdown when clicking inside the menu
         dropdownMenu.addEventListener("click", (event) => {
-          event.stopPropagation();
+            event.stopPropagation();
         });
-      }
-    
-    
+    }
+
+
 
     FEmode() {
         let inputStr = this.screen.textContent;
         if (!inputStr || isNaN(Number(inputStr))) return;
-    
+
         let num = Number(inputStr);
         this.isExponentialMode = !this.isExponentialMode;
-    
+
         if (this.isExponentialMode) {
             let exponent = num.toExponential().split('e');
             let updatedDisplayStr = `${exponent[0]}*10^${Number(exponent[1])}`;
@@ -248,7 +260,7 @@ export class Calculator {
             this.screen.textContent = num.toString();
         }
     }
-    
+
 
     toggleSign() {
         const currentValue = parseFloat(this.screen.textContent);
@@ -289,58 +301,59 @@ export class Calculator {
         }
         let angle = this.isDegreeMode ? (inputValue * Math.PI) / 180 : inputValue; // Convert to radians if in degree mode
         let result;
-    
+
         switch (func) {
             case "sin":
-               result = "sin("
+                result = "sin("
                 break;
             case "cos":
-                 result = "cos("
+                result = "cos("
                 break;
             case "tan":
-                 result = "tan("
+                result = "tan("
+                break;
+            case "asin":
+                result = "asin(";
+                break;
+            case "acos":
+                result = "acos(";
+                break;
+            case "atan":
+                result = "atan(";
                 break;
             default:
                 this.screen.textContent = "Error";
                 return;
         }
-    
+
         // Display result 
         this.screen.textContent = result;
         saveHistory(`${func}(${inputValue}${this.isDegreeMode ? '°' : ' rad'}) = ${result}`);
     }
-        
-        
-    
-        setDegMode() {
-            this.isDegreeMode = !this.isDegreeMode;
-            this.updateDegButton();
-        }
-    
-        updateDegButton() {
-            // const isDegree = this.isDegreeMode;
-            const degButton = document.getElementById("deg-btn");
-            if (degButton) {
-                degButton.innerText = this.isDegreeMode ? "DEG" : "RAD";
-            }
-             !this.isDegreeMode ;
-             
-        }
 
-        floor() {
-            const currentValue = this.screen.textContent;
-            if (!isNaN(parseFloat(currentValue))) {
-                this.screen.textContent = `floor(${currentValue})`;
-            }
+
+    setDegMode() {
+        this.isDegreeMode = !this.isDegreeMode;
+        this.updateDegButton();
+    }
+
+    updateDegButton() {
+        const degButton = document.getElementById("deg-btn");
+        if (degButton) {
+            degButton.innerText = this.isDegreeMode ? "DEG" : "RAD";
         }
-        
-        
-        ceil() {
-            const currentValue = this.screen.textContent;
-            if (!isNaN(parseFloat(currentValue))) {
-                this.screen.textContent = `ceil(${currentValue})`;
-            }
-        }
+        !this.isDegreeMode;
+
+    }
+
+    floor() {
+        this.screen.textContent = "floor("
+    }
+
+
+    ceil() {
+        this.screen.textContent = "ceil("
+    }
 }
 
 
