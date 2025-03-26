@@ -1,3 +1,4 @@
+// memory-clear-btn
 export function handleMC() {
     if (localStorage) {
         localStorage.removeItem('calculationOutput');
@@ -7,6 +8,7 @@ export function handleMC() {
     }
 }
 
+// memory-recall-btn
 export function handleMR(screen) {
     let inputvalue = screen.textContent
     if (localStorage) {
@@ -21,6 +23,7 @@ export function handleMR(screen) {
     }
 }
 
+// memory-store-btn
 export function handleMS(screen, getValueCallback) {
     if (localStorage) {
         const valueToStore = getValueCallback(screen);
@@ -35,6 +38,7 @@ export function handleMS(screen, getValueCallback) {
     }
 }
 
+// memory-add/minus-btn
 export function handleMplusAndMinus(ref, screen, getValueCallback) {
     if (localStorage) {
         const memoryValue = parseFloat(localStorage.getItem('calculationOutput') || "0");
