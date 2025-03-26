@@ -40,19 +40,23 @@ const initializeButtons = (buttonClass) => {
     document.querySelector('.modulus-btn').addEventListener('click', () => calculator.appendValue('%'));
     document.querySelector('.exponent-btn').addEventListener('click', () => calculator.appendValue('^'));
     document.querySelector('.factorial-btn').addEventListener('click', () => calculator.appendValue('!'));
-    document.querySelector('.log-btn').addEventListener('click', () => calculator.log());
-    document.querySelector('.eulars-btn').addEventListener('click', () => calculator.eulersFormula());
-    document.querySelector('.logn-btn').addEventListener('click', () => calculator.ln());
-    document.querySelector('.reciprocal-btn').addEventListener('click', () => calculator.reciprocal());
-    document.querySelector('.abs-btn').addEventListener('click', () => calculator.absoluteValue());
-    document.querySelector('.square-btn').addEventListener('click', () => calculator.square());
-    document.querySelector('.sqrt-btn').addEventListener('click', () => calculator.sqrt());
     document.querySelector('.power-btn').addEventListener('click', () => calculator.xpowery());
     document.querySelector('.ten-power-btn').addEventListener('click', () => calculator.tenPowerX());
     document.querySelector('.toggle-sign-btn').addEventListener('click', () => calculator.toggleSign());
-    document.querySelector('.second-btn').addEventListener('click', (e) => calculator.toggleSecondPrimary(e.target));
-    document.querySelector('.fe-btn').addEventListener('click', () => calculator.FEmode());
+    document.querySelector('.reciprocal-btn').addEventListener('click', () => calculator.reciprocal());
 
+    // Math Functions
+    document.querySelector('.log-btn').addEventListener('click', () => calculator.log());
+    document.querySelector('.eulars-btn').addEventListener('click', () => calculator.eulersFormula());
+    document.querySelector('.logn-btn').addEventListener('click', () => calculator.ln());
+    document.querySelector('.abs-btn').addEventListener('click', () => calculator.absoluteValue());
+    document.querySelector('.square-btn').addEventListener('click', () => calculator.square());
+    document.querySelector('.sqrt-btn').addEventListener('click', () => calculator.sqrt());
+    document.querySelector('.second-btn').addEventListener('click', (e) => calculator.toggleSecondPrimary(e.target));
+
+
+    // degree function
+    document.querySelector('.fe-btn').addEventListener('click', () => calculator.FEmode());
     document.getElementById('deg-btn').addEventListener('click', () => {
         if (typeof calculator !== 'undefined' && calculator.setDegMode) {
             calculator.setDegMode();
@@ -64,10 +68,11 @@ const initializeButtons = (buttonClass) => {
     document.querySelector('.cos-btn').addEventListener('click', () => calculator.trigometry('cos'));
     document.querySelector('.tan-btn').addEventListener('click', () => calculator.trigometry('tan'));
     document.querySelector('.floor-btn').addEventListener('click', () => calculator.floor());
-document.querySelector('.ceil-btn').addEventListener('click', () => calculator.ceil());
+    document.querySelector('.ceil-btn').addEventListener('click', () => calculator.ceil());
 
 };
 
+// initialize buttons
 initializeButtons('.btn');
 calculator.setupDropdown("dropdownBtn", "dropdownMenu");
 calculator.setupDropdown("dropdownBtn1", "dropdownMenu1");
