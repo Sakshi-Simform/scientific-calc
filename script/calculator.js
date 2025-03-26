@@ -1,3 +1,6 @@
+import { saveHistory } from './history.js';
+import { handleMC, handleMR, handleMS, handleMplusAndMinus } from './memory.js';
+
 export class Calculator {
     constructor(screenId) {
         this.screen = document.getElementById(screenId);
@@ -5,6 +8,13 @@ export class Calculator {
             throw new Error(`Screen element with id "${screenId}" not found.`);
         }
         this.calculationDone = false;
+        this.screen.textContent = localStorage.getItem('calculationOutput') || '0';
+        this.isDegreeMode = true;
+        this.updateDegButton();
+        this.isprimary = false;
+        this.sinBtn = document.querySelector(".sin-btn")
+        this.cosBtn = document.querySelector(".cos-btn")
+        this.tanBtn = document.querySelector(".tan-btn")
     }
 
     appendValue(value) {
@@ -13,8 +23,8 @@ export class Calculator {
         const lastChar = currentText.slice(-1);
 
         if (currentText.length >= 20) {
-            alert("cannot exceed more than 20 input values");
-            return
+            alert("Cannot exceed more than 20 input values");
+            return;
         }
 
         if (this.calculationDone) {
@@ -36,7 +46,21 @@ export class Calculator {
         } else {
             this.screen.textContent += value;
         }
-        this.screen.scrollTo(this.screen.offsetWidth, 0)
+        this.screen.scrollTo(this.screen.offsetWidth, 0);
+    }
+
+    initializeMemoryFunctions() {
+        document.querySelector('.mc-btn').addEventListener('click', () => handleMC());
+        document.querySelector('.mr-btn').addEventListener('click', () => handleMR(this.screen));
+        document.querySelector('.ms-btn').addEventListener('click', () =>
+            handleMS(this.screen, (input) => input.textContent)
+        );
+        document.querySelector('.mplus-btn').addEventListener('click', (event) =>
+            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
+        );
+        document.querySelector('.mminus-btn').addEventListener('click', (event) =>
+            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
+        );
     }
 
     add() {
@@ -115,26 +139,51 @@ export class Calculator {
     }
 
     result() {
-        let expression = this.screen.textContent
-            .replace('×', '*')
-            .replace('÷', '/')
-            .replace('%', '%')
-            .replace(/π/g, Math.PI)
-            .replace('10^', '10**')
-            .replace('^', '**')
-            .replace('log', 'Math.log10')
-            .replace('ln', 'Math.log')
-            .replace('abs', 'Math.abs')
-            .replace('sqrt', 'Math.sqrt');
+        let expression = this.screen.textContent;
 
-        expression = expression.replace(/(\d+)!/g, (match, num) => this.factorial(parseInt(num)));
+        if (expression.startsWith('floor(')) {
+            const value = parseFloat(expression.slice(6, -1)); 
+            this.screen.textContent = Math.floor(value);
+        } else if (expression.startsWith('ceil(')) {
+            const value = parseFloat(expression.slice(5, -1)); 
+            this.screen.textContent = Math.ceil(value);
+        } else {
+            expression = expression.replace('×', '*')
+                .replace('÷', '/')
+                .replace('%', '%')
+                .replace('/π/g', 'Math.PI')
+                .replace('10^', '10**')
+                .replace('^', '**')
+                .replace('log', 'Math.log10')
+                .replace('ln', 'Math.log')
+                .replace('abs', 'Math.abs')
+                .replace('e', 'Math.E')
+                .replace('sqrt', 'Math.sqrt');
 
-        try {
-            const evaluatedResult = eval(expression);
-            this.screen.textContent = evaluatedResult;
-            this.calculationDone = true;
-        } catch (error) {
-            alert('Error');
+                if(!this.isDegreeMode){
+                    expression = expression.replace('sin', 'Math.sin')
+                    .replace('cos', 'Math.cos')
+                    .replace('tan', 'Math.tan')
+                    
+                }
+                else{
+                    Math.sindeg = (x) => Math.sin((Math.PI / 180) * x);
+                    Math.cosdeg = (x) => Math.cos((Math.PI / 180) * x);
+                    Math.tandeg = (x) => Math.tan((Math.PI / 180) * x);
+                expression = expression.replace(/\bsin\(/g, "Math.sindeg(");
+                expression = expression.replace(/\bcos\(/g, "Math.cosdeg(");
+                expression = expression.replace(/\btan\(/g, "Math.tandeg(");
+                }
+
+    
+            try {
+                const evaluatedResult = eval(expression);
+                this.screen.textContent = evaluatedResult;
+                this.calculationDone = true;
+                saveHistory(`${expression} = ${evaluatedResult}`);
+            } catch (error) {
+                alert('Error');
+            }
         }
     }
 
@@ -148,30 +197,150 @@ export class Calculator {
     }
 
     reciprocal() {
-        const x = parseFloat(this.screen.textContent);
-        if (isNaN(x) || x === 0) {
-            this.screen.textContent = 'Error';
-        } else {
-            this.screen.textContent = (1 / x);
+        let currentinput = this.screen.textContent
+        if (currentinput == "0") {
+            this.screen.textContent = "1/"
+            return
         }
+        this.screen.textContent = currentinput.concat("1/");
     };
 
-    // Dropdown functionality
     setupDropdown(btnId, menuId) {
         const dropdownBtn = document.getElementById(btnId);
         const dropdownMenu = document.getElementById(menuId);
-
-        dropdownBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    
+        if (!dropdownBtn || !dropdownMenu) {
+          console.error('Dropdown button or menu not found!');
+          return;
+        }
+    
+        dropdownBtn.addEventListener("click", (event) => {
+            console.log("dropdown")
+          event.stopPropagation();  
+          dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block"; // Toggle visibility
         });
-
-        document.addEventListener("click", function () {
-            dropdownMenu.style.display = "none";
+    
+        // Hide dropdown
+        document.addEventListener("click", () => {
+          dropdownMenu.style.display = "none";
         });
-
-        dropdownMenu.addEventListener("click", function (event) {
-            event.stopPropagation();
+    
+        // Prevent closing the dropdown when clicking inside the menu
+        dropdownMenu.addEventListener("click", (event) => {
+          event.stopPropagation();
         });
+      }
+    
+    
+
+    FEmode() {
+        let inputStr = this.screen.textContent;
+        if (!inputStr || isNaN(Number(inputStr))) return;
+    
+        let num = Number(inputStr);
+        this.isExponentialMode = !this.isExponentialMode;
+    
+        if (this.isExponentialMode) {
+            let exponent = num.toExponential().split('e');
+            let updatedDisplayStr = `${exponent[0]}*10^${Number(exponent[1])}`;
+            this.screen.textContent = updatedDisplayStr;
+        } else {
+            this.screen.textContent = num.toString();
+        }
     }
+    
+
+    toggleSign() {
+        const currentValue = parseFloat(this.screen.textContent);
+        if (isNaN(currentValue)) {
+            this.screen.textContent = 'Error';
+        } else {
+            this.screen.textContent = (currentValue * -1).toString();
+        }
+    };
+
+    eulersFormula() {
+        const x = parseFloat(this.screen.textContent);
+        if (isNaN(x)) {
+            this.screen.textContent = 'Error';
+        } else {
+            this.screen.textContent = Math.exp(x);
+        }
+    };
+
+    toggleSecondPrimary(button) {
+        const isSecondMode = this.isSecondPrimary;
+        button.value = isSecondMode ? "second-function" : "primary-function";
+        button.ariaLabel = isSecondMode ? "Second Functions" : "Primary Functions";
+        button.textContent = isSecondMode ? "2nd" : "Primary";
+
+        this.sinBtn.value = this.sinBtn.ariaLabel = this.sinBtn.textContent = isSecondMode ? "sin" : "asin";
+        this.cosBtn.value = this.cosBtn.ariaLabel = this.cosBtn.textContent = isSecondMode ? "cos" : "acos";
+        this.tanBtn.value = this.tanBtn.ariaLabel = this.tanBtn.textContent = isSecondMode ? "tan" : "atan";
+
+        this.isSecondPrimary = !isSecondMode;
+    }
+
+    trigometry(func) {
+        let inputValue = parseFloat(this.screen.textContent);
+        if (isNaN(inputValue)) {
+            this.screen.textContent = "Error";
+            return;
+        }
+        let angle = this.isDegreeMode ? (inputValue * Math.PI) / 180 : inputValue; // Convert to radians if in degree mode
+        let result;
+    
+        switch (func) {
+            case "sin":
+               result = "sin("
+                break;
+            case "cos":
+                 result = "cos("
+                break;
+            case "tan":
+                 result = "tan("
+                break;
+            default:
+                this.screen.textContent = "Error";
+                return;
+        }
+    
+        // Display result 
+        this.screen.textContent = result;
+        saveHistory(`${func}(${inputValue}${this.isDegreeMode ? '°' : ' rad'}) = ${result}`);
+    }
+        
+        
+    
+        setDegMode() {
+            this.isDegreeMode = !this.isDegreeMode;
+            this.updateDegButton();
+        }
+    
+        updateDegButton() {
+            // const isDegree = this.isDegreeMode;
+            const degButton = document.getElementById("deg-btn");
+            if (degButton) {
+                degButton.innerText = this.isDegreeMode ? "DEG" : "RAD";
+            }
+             !this.isDegreeMode ;
+             
+        }
+
+        floor() {
+            const currentValue = this.screen.textContent;
+            if (!isNaN(parseFloat(currentValue))) {
+                this.screen.textContent = `floor(${currentValue})`;
+            }
+        }
+        
+        
+        ceil() {
+            const currentValue = this.screen.textContent;
+            if (!isNaN(parseFloat(currentValue))) {
+                this.screen.textContent = `ceil(${currentValue})`;
+            }
+        }
 }
+
+
