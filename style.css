@@ -255,31 +255,54 @@ button:hover {
 /* History container styles */
 .history-container {
   display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #f1f1f1;
-  border-radius: 5px;
-}
-
-
-.history-container.show {
-  display: block;
+  width: 300px;
+  height: 257px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  text-align: center;
 }
 
 #historyList {
-  max-height: 40px;
-  overflow-y: auto;
   margin-top: 10px;
-  display: flex;
-  align-items: start;
-  flex-direction: column;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  list-style-type: none;
 }
 
-#history-btn {
-  padding: 7px;
+#historyList li {
+  margin: 5px 0;
+}
+
+#historyList li div {
+  text-align: left;
+  padding: 5px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+#historyList li div:hover {
+  background-color: #d0d0d0;
+}
+
+/* Close button*/
+#closeHistoryBtn {
+  margin-top: 10px;
+  background-color: #d9534f;
+  color: white;
   border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-right: auto;
 }
 
-#toggleHistoryButton:hover {
-  background-color: #b7c7b7;
+#closeHistoryBtn:hover {
+  background-color: #c9302c;
 }
