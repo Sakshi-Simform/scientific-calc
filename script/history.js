@@ -66,14 +66,7 @@ export function displayHistory() {
 export function setupHistoryToggle() {
     const toggleHistoryButton = document.getElementById('toggleHistoryButton');
     const historyContainer = document.getElementById('historyContainer');
-    const closeHistoryButton = document.getElementById('closeHistoryBtn');
-
     if (toggleHistoryButton) {
         toggleHistoryButton.addEventListener('click', displayHistory);
-    }
-    if (closeHistoryButton) {
-        closeHistoryButton.addEventListener('click', () => {
-            historyContainer.style.display = 'none';
-        });
     }
 }
