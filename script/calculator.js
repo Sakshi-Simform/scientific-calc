@@ -12,14 +12,21 @@ export class Calculator {
         this.isDegreeMode = true;
         this.updateDegButton();
         this.isprimary = false;
+        this.FEMode = false; 
+        this.FEButton = document.querySelector("fe-btn")
         this.sinBtn = document.querySelector(".sin-btn")
         this.cosBtn = document.querySelector(".cos-btn")
         this.tanBtn = document.querySelector(".tan-btn")
+
+        this.FEButton = document.getElementById("fe-btn");
+        if (!this.FEButton) {
+            console.error('F-E Button not found!');
+        }
     }
 
     appendValue(value) {
         const currentText = this.screen.textContent;
-        const operators = ['+', '-', '×', '÷', '.'];
+        const operators = ['+', '-', '×', '÷', '.','!','%'];
         const lastChar = currentText.slice(-1);
 
         if (currentText.length >= 20) {
@@ -36,7 +43,7 @@ export class Calculator {
             return;
         }
 
-        if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\/]/).pop().includes('.'))) {
+        if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\%\!/]/).pop().includes('.'))) {
             alert("Cannot enter multiple decimal values");
             return;
         }
@@ -129,18 +136,16 @@ export class Calculator {
     }
 
     factorial(n) {
-        if (n < 0) return "Error";
-        if (n === 0 || n === 1) return 1;
-        let result = 1;
-        for (let i = 2; i <= n; i++) {
-            result *= i;
-        }
-        return result;
+        if(n === 0 || n === 1) return 1;
+        return n * this.factorial(n-1)
     }
+
+   
 
     result() {
         let expression = this.screen.textContent;
-
+        
+       
         expression = expression.replace('×', '*')
             .replace('÷', '/')
             .replace('%', '%')
@@ -150,14 +155,11 @@ export class Calculator {
             .replace('log', 'Math.log10')
             .replace('ln', 'Math.log')
             .replace('abs', 'Math.abs')
-            // .replace('e', 'Math.E')
             .replace(/\be\b/g, "Math.E")
             .replace('sqrt', 'Math.sqrt')
-            // .replace(/\bfloor\(/g, "Math.ceil(")
-            .replace(/\bfloor\(/g, "Math.floor(")   
-            .replace(/\bceil\(/g, "Math.ceil(");
-
-           
+            .replace(/\bfloor\(/g, "Math.floor(")  
+            .replace(/(\d+)!/g, "this.factorial($1)")
+            .replace(/\bceil\(/g, "Math.ceil(")
             console.log(expression)
 
         if (!this.isDegreeMode) {
@@ -167,7 +169,6 @@ export class Calculator {
                 .replace('asin', 'Math.asin')
                 .replace('acos', 'Math.acos')
                 .replace('atan', 'Math.atan')
-
         }
         else {
             Math.sindeg = (x) => Math.sin((Math.PI / 180) * x);
@@ -187,7 +188,10 @@ export class Calculator {
 
 
         try {
+            console.log(eval(expression))
+
             const evaluatedResult = eval(expression);
+            console.log(evaluatedResult)
             this.screen.textContent = evaluatedResult;
             this.calculationDone = true;
             saveHistory(`${expression} = ${evaluatedResult}`);
@@ -195,9 +199,6 @@ export class Calculator {
             alert('Error');
         }
     }
-
-
-
 
     appendPi() {
         const piSymbol = 'π';
@@ -243,24 +244,46 @@ export class Calculator {
         });
     }
 
+  
+    
+    Femode() {
+        const isFeMode = this.FEMode;  
+        this.FEMode = !isFeMode;  
+        this.FEButton.ariaLabel = this.FEMode ? "Scientific Notation Mode" : "Default Notation Mode";
+        this.FEButton.value = this.FEMode ? "ex" : "f-e"; 
+        this.FEButton.textContent = this.FEMode ? "E" : "F-E";  
 
+         this.updateDisplay();
+    }
 
-    FEmode() {
-        let inputStr = this.screen.textContent;
-        if (!inputStr || isNaN(Number(inputStr))) return;
+    updateDisplay() {
+        const currentValue = parseFloat(this.screen.textContent);
+        if (isNaN(currentValue)) {
+            return; 
+        }
 
-        let num = Number(inputStr);
-        this.isExponentialMode = !this.isExponentialMode;
-
-        if (this.isExponentialMode) {
-            let exponent = num.toExponential().split('e');
-            let updatedDisplayStr = `${exponent[0]}*10^${Number(exponent[1])}`;
-            this.screen.textContent = updatedDisplayStr;
+        if (this.FEMode) {
+            this.screen.textContent = this.convertToEngineeringNotation(currentValue);
         } else {
-            this.screen.textContent = num.toString();
+            this.screen.textContent = this.convertToScientificNotation(currentValue);
         }
     }
 
+    convertToEngineeringNotation(value) {
+        const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
+        const exponentvalue = value / Math.pow(10, exponent);
+        return exponentvalue.toFixed(3) + " × 10^" + exponent;
+    }
+
+    convertToScientificNotation(value) {
+        const exponent = Math.floor(Math.log10(Math.abs(value))); 
+        const exponentvalue = value / Math.pow(10, exponent);
+        return exponentvalue.toFixed(3) + " × 10^" + exponent;
+    }
+
+
+
+    
 
     toggleSign() {
         const currentValue = parseFloat(this.screen.textContent);
@@ -330,7 +353,6 @@ export class Calculator {
         this.screen.textContent = result;
         saveHistory(`${func}(${inputValue}${this.isDegreeMode ? '°' : ' rad'}) = ${result}`);
     }
-
 
     setDegMode() {
         this.isDegreeMode = !this.isDegreeMode;
