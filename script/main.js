@@ -56,7 +56,7 @@ const initializeButtons = (buttonClass) => {
 
 
     // degree function
-    document.querySelector('.fe-btn').addEventListener('click', () => calculator.FEmode());
+    document.querySelector('.fe-btn').addEventListener('click', () => calculator.Femode());
     document.getElementById('deg-btn').addEventListener('click', () => {
         if (typeof calculator !== 'undefined' && calculator.setDegMode) {
             calculator.setDegMode();
