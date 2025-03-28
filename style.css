@@ -303,3 +303,21 @@ button:hover {
 #historyList li div:hover {
   background-color: #d0d0d0;
 }
+
+/* clear-history-button */
+.clear-history-btn {
+  background-color: #db3f3f; 
+  color: white; 
+  font-size: 14px; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-top: 10px; 
+  width: 80%; 
+  text-align: center; 
+}
+
+.clear-history-btn:hover {
+  background-color: #e75858;
+}
