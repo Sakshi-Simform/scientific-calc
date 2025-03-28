@@ -1,7 +1,7 @@
-import { Calculator } from './calculator.js';
-import { handleKeyPress } from './keyboardEvents.js';
 import { saveHistory, clearHistory, displayHistory, setupHistoryToggle } from './history.js';
-import { handleMC, handleMR, handleMplusAndMinus, handleMS } from './memory.js';
+import { handleMC, handleMR, handleMS, handleMplusAndMinus } from './memory.js';
+import { Calculator } from './calculator.js';
+import { handleKeyPress } from './keyboardEvents.js'
 
 const calculator = new Calculator('screen');
 
@@ -36,7 +36,7 @@ const initializeButtons = (buttonClass) => {
     // Keyboard input
     document.addEventListener('keydown', handleKeyPress.bind(calculator));
 
-    //Advance Functions
+    // Advance Functions
     document.querySelector('.modulus-btn').addEventListener('click', () => calculator.appendValue('%'));
     document.querySelector('.exponent-btn').addEventListener('click', () => calculator.appendValue('^'));
     document.querySelector('.factorial-btn').addEventListener('click', () => calculator.appendValue('!'));
@@ -54,7 +54,6 @@ const initializeButtons = (buttonClass) => {
     document.querySelector('.sqrt-btn').addEventListener('click', () => calculator.sqrt());
     document.querySelector('.second-btn').addEventListener('click', (e) => calculator.toggleSecondPrimary(e.target));
 
-
     // degree function
     document.querySelector('.fe-btn').addEventListener('click', () => calculator.Femode());
     document.getElementById('deg-btn').addEventListener('click', () => {
@@ -70,7 +69,7 @@ const initializeButtons = (buttonClass) => {
     document.querySelector('.floor-btn').addEventListener('click', () => calculator.floor());
     document.querySelector('.ceil-btn').addEventListener('click', () => calculator.ceil());
 
-};
+ };
 
 // initialize buttons
 initializeButtons('.btn');
