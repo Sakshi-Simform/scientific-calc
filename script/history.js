@@ -1,13 +1,22 @@
+// Constants for localStorage keys
+const HISTORY_KEY = 'calculationHistory';
+
 // save-history
 export function saveHistory(historyEntry) {
-    let history = JSON.parse(localStorage.getItem('calculationHistory')) || [];
+    let history = [];
+    try {
+        history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+    } catch (error) {
+        console.error("Error parsing history from localStorage", error);
+    }
+
     history.push(historyEntry);
-    localStorage.setItem('calculationHistory', JSON.stringify(history));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 }
 
 // clear-history
 export function clearHistory() {
-    localStorage.removeItem('calculationHistory');
+    localStorage.removeItem(HISTORY_KEY);
     const historyList = document.getElementById('historyList');
     if (historyList) {
         historyList.innerHTML = '';
@@ -16,7 +25,13 @@ export function clearHistory() {
 
 // display-history
 export function displayHistory() {
-    const history = JSON.parse(localStorage.getItem('calculationHistory')) || [];
+    let history = [];
+    try {
+        history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+    } catch (error) {
+        console.error("Error parsing history from localStorage", error);
+    }
+
     const historyList = document.getElementById('historyList');
     const historyContainer = document.getElementById('historyContainer');
     const toggleHistoryButton = document.getElementById('toggleHistoryButton');
@@ -60,6 +75,8 @@ export function displayHistory() {
 
             historyList.appendChild(ul);
         }
+
+        // Clear history button
         const clearHistoryBtn = document.createElement('button');
         clearHistoryBtn.classList.add('clear-history-btn');
         clearHistoryBtn.innerHTML = 'Clear History';
