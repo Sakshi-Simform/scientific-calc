@@ -12,21 +12,27 @@ export class Calculator {
         this.isDegreeMode = true;
         this.updateDegButton();
         this.isprimary = false;
-        this.FEMode = false; 
-        this.FEButton = document.querySelector("fe-btn")
-        this.sinBtn = document.querySelector(".sin-btn")
-        this.cosBtn = document.querySelector(".cos-btn")
-        this.tanBtn = document.querySelector(".tan-btn")
+        this.FEMode = false;
 
-        this.FEButton = document.getElementById("fe-btn");
-        if (!this.FEButton) {
+        // Constants for buttons
+        const FEButton = document.getElementById("fe-btn");
+        const sinBtn = document.querySelector(".sin-btn");
+        const cosBtn = document.querySelector(".cos-btn");
+        const tanBtn = document.querySelector(".tan-btn");
+
+        if (!FEButton) {
             console.error('F-E Button not found!');
         }
+
+        this.FEButton = FEButton;
+        this.sinBtn = sinBtn;
+        this.cosBtn = cosBtn;
+        this.tanBtn = tanBtn;
     }
 
     appendValue(value) {
         const currentText = this.screen.textContent;
-        const operators = ['+', '-', '×', '÷', '.','!','%'];
+        const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
 
         if (currentText.length >= 20) {
@@ -57,15 +63,22 @@ export class Calculator {
     }
 
     initializeMemoryFunctions() {
-        document.querySelector('.mc-btn').addEventListener('click', () => handleMC());
-        document.querySelector('.mr-btn').addEventListener('click', () => handleMR(this.screen));
-        document.querySelector('.ms-btn').addEventListener('click', () =>
+        // Constants for memory function buttons
+        const mcBtn = document.querySelector('.mc-btn');
+        const mrBtn = document.querySelector('.mr-btn');
+        const msBtn = document.querySelector('.ms-btn');
+        const mplusBtn = document.querySelector('.mplus-btn');
+        const mminusBtn = document.querySelector('.mminus-btn');
+
+        mcBtn.addEventListener('click', () => handleMC());
+        mrBtn.addEventListener('click', () => handleMR(this.screen));
+        msBtn.addEventListener('click', () =>
             handleMS(this.screen, (input) => input.textContent)
         );
-        document.querySelector('.mplus-btn').addEventListener('click', (event) =>
+        mplusBtn.addEventListener('click', (event) =>
             handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
         );
-        document.querySelector('.mminus-btn').addEventListener('click', (event) =>
+        mminusBtn.addEventListener('click', (event) =>
             handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
         );
     }
@@ -136,13 +149,13 @@ export class Calculator {
     }
 
     factorial(n) {
-        if(n === 0 || n === 1) return 1;
-        return n * this.factorial(n-1)
+        if (n === 0 || n === 1) return 1;
+        return n * this.factorial(n - 1)
     }
 
     result() {
         let expression = this.screen.textContent;
-        
+
         expression = expression.replace('×', '*')
             .replace('÷', '/')
             .replace('%', '%')
@@ -154,10 +167,10 @@ export class Calculator {
             .replace('abs', 'Math.abs')
             .replace(/\be\b/g, "Math.E")
             .replace('sqrt', 'Math.sqrt')
-            .replace(/\bfloor\(/g, "Math.floor(")  
+            .replace(/\bfloor\(/g, "Math.floor(")
             .replace(/(\d+)!/g, "this.factorial($1)")
             .replace(/\bceil\(/g, "Math.ceil(")
-            console.log(expression)
+        console.log(expression)
         if (!this.isDegreeMode) {
             expression = expression.replace('sin', 'Math.sin')
                 .replace('cos', 'Math.cos')
@@ -238,21 +251,21 @@ export class Calculator {
             event.stopPropagation();
         });
     }
-    
-    Femode() {
-        const isFeMode = this.FEMode;  
-        this.FEMode = !isFeMode;  
-        this.FEButton.ariaLabel = this.FEMode ? "Scientific Notation Mode" : "Default Notation Mode";
-        this.FEButton.value = this.FEMode ? "ex" : "f-e"; 
-        this.FEButton.textContent = this.FEMode ? "E" : "F-E";  
 
-         this.updateDisplay();
+    Femode() {
+        const isFeMode = this.FEMode;
+        this.FEMode = !isFeMode;
+        this.FEButton.ariaLabel = this.FEMode ? "Scientific Notation Mode" : "Default Notation Mode";
+        this.FEButton.value = this.FEMode ? "ex" : "f-e";
+        this.FEButton.textContent = this.FEMode ? "E" : "F-E";
+
+        this.updateDisplay();
     }
 
     updateDisplay() {
         const currentValue = parseFloat(this.screen.textContent);
         if (isNaN(currentValue)) {
-            return; 
+            return;
         }
 
         if (this.FEMode) {
@@ -269,7 +282,7 @@ export class Calculator {
     }
 
     convertToScientificNotation(value) {
-        const exponent = Math.floor(Math.log10(Math.abs(value))); 
+        const exponent = Math.floor(Math.log10(Math.abs(value)));
         const exponentvalue = value / Math.pow(10, exponent);
         return exponentvalue.toFixed(3) + " × 10^" + exponent;
     }
