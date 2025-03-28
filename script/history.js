@@ -13,6 +13,7 @@ export function clearHistory() {
         historyList.innerHTML = '';
     }
 }
+
 // display-history
 export function displayHistory() {
     const history = JSON.parse(localStorage.getItem('calculationHistory')) || [];
@@ -59,6 +60,11 @@ export function displayHistory() {
 
             historyList.appendChild(ul);
         }
+        const clearHistoryBtn = document.createElement('button');
+        clearHistoryBtn.classList.add('clear-history-btn');
+        clearHistoryBtn.innerHTML = 'Clear History';
+        clearHistoryBtn.addEventListener('click', clearHistory);
+        historyList.appendChild(clearHistoryBtn);
     }
 }
 
