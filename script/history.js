@@ -2,7 +2,7 @@
 const HISTORY_KEY = 'calculationHistory';
 
 // save-history
-export function saveHistory(historyEntry) {
+export const saveHistory = (historyEntry) => {
     let history = [];
     try {
         history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
@@ -12,19 +12,19 @@ export function saveHistory(historyEntry) {
 
     history.push(historyEntry);
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-}
+};
 
 // clear-history
-export function clearHistory() {
+export const clearHistory = () => {
     localStorage.removeItem(HISTORY_KEY);
     const historyList = document.getElementById('historyList');
     if (historyList) {
         historyList.innerHTML = '';
     }
-}
+};
 
 // display-history
-export function displayHistory() {
+export const displayHistory = () => {
     let history = [];
     try {
         history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
@@ -83,13 +83,13 @@ export function displayHistory() {
         clearHistoryBtn.addEventListener('click', clearHistory);
         historyList.appendChild(clearHistoryBtn);
     }
-}
+};
 
 // toggle-history-btn
-export function setupHistoryToggle() {
+export const setupHistoryToggle = () => {
     const toggleHistoryButton = document.getElementById('toggleHistoryButton');
     const historyContainer = document.getElementById('historyContainer');
     if (toggleHistoryButton) {
         toggleHistoryButton.addEventListener('click', displayHistory);
     }
-}
+};
