@@ -8,19 +8,21 @@ export function handleMC() {
     }
 }
 
-// memory-recall-btn
+//memory-recall btn
 export function handleMR(screen) {
     let inputvalue = screen.textContent
+
+    if(inputvalue === '0' || inputvalue === ''){
+        inputvalue = '';
+    }
     if (localStorage) {
         const memoryValue = localStorage.getItem('calculationOutput');
         if (memoryValue) {
-            screen.textContent = inputvalue.concat(memoryValue);
+            screen.textContent = inputvalue + memoryValue;
         } else {
             console.log("No memory value stored.");
         }
-    } else {
-        console.error("Error recalling memory: localStorage is not available.");
-    }
+    } 
 }
 
 // memory-store-btn
