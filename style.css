@@ -123,9 +123,10 @@ button:hover {
   display: flex;
   align-items: center;
   margin-left: 1.55em;
-  width: 106px;
+  width: 121px;
   margin-top: 0.5em;
   gap: 0.2em;
+  padding: 4px;
 }
 
 .trignometry {
@@ -136,9 +137,10 @@ button:hover {
   display: flex;
   align-items: center;
   margin-left: 1.55em;
-  width: 90px;
+  width: 121px;
   margin-top: 0.5em;
   gap: 0.2em;
+  padding: 4px;
 }
 
 .function {
