@@ -140,12 +140,9 @@ export class Calculator {
         return n * this.factorial(n-1)
     }
 
-   
-
     result() {
         let expression = this.screen.textContent;
         
-       
         expression = expression.replace('×', '*')
             .replace('÷', '/')
             .replace('%', '%')
@@ -161,7 +158,6 @@ export class Calculator {
             .replace(/(\d+)!/g, "this.factorial($1)")
             .replace(/\bceil\(/g, "Math.ceil(")
             console.log(expression)
-
         if (!this.isDegreeMode) {
             expression = expression.replace('sin', 'Math.sin')
                 .replace('cos', 'Math.cos')
@@ -185,7 +181,6 @@ export class Calculator {
             expression = expression.replace(/\bacos\(/g, "Math.acos(");
             expression = expression.replace(/\batan\(/g, "Math.atan(");
         }
-
 
         try {
             console.log(eval(expression))
@@ -243,8 +238,6 @@ export class Calculator {
             event.stopPropagation();
         });
     }
-
-  
     
     Femode() {
         const isFeMode = this.FEMode;  
@@ -280,10 +273,6 @@ export class Calculator {
         const exponentvalue = value / Math.pow(10, exponent);
         return exponentvalue.toFixed(3) + " × 10^" + exponent;
     }
-
-
-
-    
 
     toggleSign() {
         const currentValue = parseFloat(this.screen.textContent);
@@ -365,17 +354,13 @@ export class Calculator {
             degButton.innerText = this.isDegreeMode ? "DEG" : "RAD";
         }
         !this.isDegreeMode;
-
     }
 
     floor() {
         this.screen.textContent = "floor("
     }
 
-
     ceil() {
         this.screen.textContent = "ceil("
     }
 }
-
-
