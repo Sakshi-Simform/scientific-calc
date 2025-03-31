@@ -9,8 +9,6 @@ const buttonselector = {
     mclearSelector: '.mc-btn',
     mrecallSelector: '.mr-btn',
     mplusSelector: '.mplus-btn',
-    mmniusSelector: '.mminus-btn',
-    mstoreSelectoe: '.ms-btn'
 }
 
 export class Calculator {
@@ -82,8 +80,8 @@ export class Calculator {
         const mcBtn = document.querySelector(buttonselector. mclearSelector);
         const mrBtn = document.querySelector(buttonselector.mrecallSelector);
         const msBtn = document.querySelector(buttonselector.mstoreSelectoe);
-        const mplusBtn = document.querySelector(buttonselector.mplusSelector);
-        const mminusBtn = document.querySelector(buttonselector.mminusSelector);
+        const mplusBtn = document.querySelector('.mplus-btn');
+        const mminusBtn = document.querySelector('.mminus-btn');
 
         mcBtn.addEventListener('click', () => handleMC());
         mrBtn.addEventListener('click', () => handleMR(this.screen));
