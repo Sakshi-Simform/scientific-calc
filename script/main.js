@@ -1,78 +1,137 @@
 import { saveHistory, clearHistory, displayHistory, setupHistoryToggle } from './history.js';
 import { handleMC, handleMR, handleMS, handleMplusAndMinus } from './memory.js';
 import { Calculator } from './calculator.js';
-import { handleKeyPress } from './keyboardEvents.js'
+import { handleKeyPress } from './keyboardEvents.js';
 
 const calculator = new Calculator('screen');
 
-// Initialize buttons
-const initializeButtons = (buttonClass) => {
-    const numberButtons = document.querySelectorAll(`${buttonClass}.num`);
-    numberButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            calculator.appendValue(button.textContent.trim());
-        });
-    });
 
-    // Arithmetic operations
-    document.querySelector('.add-btn').addEventListener('click', () => calculator.add());
-    document.querySelector('.subtract-btn').addEventListener('click', () => calculator.subtract());
-    document.querySelector('.multiply-btn').addEventListener('click', () => calculator.multiply());
-    document.querySelector('.divide-btn').addEventListener('click', () => calculator.divide());
+const initializeButtons = () => {
+    const calculatorContainer = document.querySelector('.calculator');
 
-    // Parentheses
-    document.querySelector('.open-paren-btn').addEventListener('click', () => calculator.addOpenParenthesis());
-    document.querySelector('.close-paren-btn').addEventListener('click', () => calculator.addCloseParenthesis());
+    calculatorContainer.addEventListener('click', (event) => {
+        const target = event.target;
 
-    // Core functions
-    document.querySelector('#equals').addEventListener('click', () => calculator.result());
-    document.querySelector('#backspace').addEventListener('click', () => calculator.backspace());
-    document.querySelector('.clear-btn').addEventListener('click', () => calculator.clearDisplay());
-    document.querySelector('.pi-btn').addEventListener('click', () => calculator.appendPi());
-
-    // History functions
-    document.querySelector('.clear-history-btn').addEventListener('click', () => clearHistory());
-
-    // Keyboard input
-    document.addEventListener('keydown', handleKeyPress.bind(calculator));
-
-    // Advance Functions
-    document.querySelector('.modulus-btn').addEventListener('click', () => calculator.appendValue('%'));
-    document.querySelector('.exponent-btn').addEventListener('click', () => calculator.appendValue('^'));
-    document.querySelector('.factorial-btn').addEventListener('click', () => calculator.appendValue('!'));
-    document.querySelector('.power-btn').addEventListener('click', () => calculator.xpowery());
-    document.querySelector('.ten-power-btn').addEventListener('click', () => calculator.tenPowerX());
-    document.querySelector('.toggle-sign-btn').addEventListener('click', () => calculator.toggleSign());
-    document.querySelector('.reciprocal-btn').addEventListener('click', () => calculator.reciprocal());
-
-    // Math Functions
-    document.querySelector('.log-btn').addEventListener('click', () => calculator.log());
-    document.querySelector('.eulars-btn').addEventListener('click', () => calculator.eulersFormula());
-    document.querySelector('.logn-btn').addEventListener('click', () => calculator.ln());
-    document.querySelector('.abs-btn').addEventListener('click', () => calculator.absoluteValue());
-    document.querySelector('.square-btn').addEventListener('click', () => calculator.square());
-    document.querySelector('.sqrt-btn').addEventListener('click', () => calculator.sqrt());
-    document.querySelector('.second-btn').addEventListener('click', (e) => calculator.toggleSecondPrimary(e.target));
-
-    // degree function
-    document.querySelector('.fe-btn').addEventListener('click', () => calculator.Femode());
-    document.getElementById('deg-btn').addEventListener('click', () => {
-        if (typeof calculator !== 'undefined' && calculator.setDegMode) {
-            calculator.setDegMode();
+        // If the target is a number button
+        if (target.classList.contains('num')) {
+            calculator.appendValue(target.textContent.trim());
+        }
+        // Arithmetic operations
+        else if (target.classList.contains('add-btn')) {
+            calculator.add();
+        }
+        else if (target.classList.contains('subtract-btn')) {
+            calculator.subtract();
+        }
+        else if (target.classList.contains('multiply-btn')) {
+            calculator.multiply();
+        }
+        else if (target.classList.contains('divide-btn')) {
+            calculator.divide();
+        }
+        // Parentheses
+        else if (target.classList.contains('open-paren-btn')) {
+            calculator.addOpenParenthesis();
+        }
+        else if (target.classList.contains('close-paren-btn')) {
+            calculator.addCloseParenthesis();
+        }
+        // Core functions
+        else if (target.id === 'equals') {
+            calculator.result();
+        }
+        else if (target.id === 'backspace') {
+            calculator.backspace();
+        }
+        else if (target.classList.contains('clear-btn')) {
+            calculator.clearDisplay();
+        }
+        else if (target.classList.contains('pi-btn')) {
+            calculator.appendPi();
+        }
+        // History functions
+        else if (target.classList.contains('clear-history-btn')) {
+            clearHistory();
+        }
+        // Advanced Functions
+        else if (target.classList.contains('modulus-btn')) {
+            calculator.appendValue('%');
+        }
+        else if (target.classList.contains('exponent-btn')) {
+            calculator.appendValue('^');
+        }
+        else if (target.classList.contains('factorial-btn')) {
+            calculator.appendValue('!');
+        }
+        else if (target.classList.contains('power-btn')) {
+            calculator.xpowery();
+        }
+        else if (target.classList.contains('ten-power-btn')) {
+            calculator.tenPowerX();
+        }
+        else if (target.classList.contains('toggle-sign-btn')) {
+            calculator.toggleSign();
+        }
+        else if (target.classList.contains('reciprocal-btn')) {
+            calculator.reciprocal();
+        }
+        // Math Functions
+        else if (target.classList.contains('log-btn')) {
+            calculator.log();
+        }
+        else if (target.classList.contains('eulars-btn')) {
+            calculator.eulersFormula();
+        }
+        else if (target.classList.contains('logn-btn')) {
+            calculator.ln();
+        }
+        else if (target.classList.contains('abs-btn')) {
+            calculator.absoluteValue();
+        }
+        else if (target.classList.contains('square-btn')) {
+            calculator.square();
+        }
+        else if (target.classList.contains('sqrt-btn')) {
+            calculator.sqrt();
+        }
+        else if (target.classList.contains('second-btn')) {
+            calculator.toggleSecondPrimary(target);
+        }
+        // Degree functions
+        else if (target.classList.contains('fe-btn')) {
+            calculator.Femode();
+        }
+        else if (target.id === 'deg-btn') {
+            if (typeof calculator !== 'undefined' && calculator.setDegMode) {
+                calculator.setDegMode();
+            }
         }
     });
 
-    // Trigonometric functions
-    document.querySelector('.sin-btn').addEventListener('click', () => calculator.trigometry('sin'));
-    document.querySelector('.cos-btn').addEventListener('click', () => calculator.trigometry('cos'));
-    document.querySelector('.tan-btn').addEventListener('click', () => calculator.trigometry('tan'));
+    document.querySelector('.sin-btn').addEventListener('click', () => {
+        const target = document.querySelector('.sin-btn');
+        calculator.appendValue('sin(');
+    });
+
+    document.querySelector('.cos-btn').addEventListener('click', () => {
+        const target = document.querySelector('.cos-btn');
+        calculator.appendValue('cos(');
+    });
+
+    document.querySelector('.tan-btn').addEventListener('click', () => {
+        const target = document.querySelector('.tan-btn');
+        calculator.appendValue('tan(');
+    });
+
     document.querySelector('.floor-btn').addEventListener('click', () => calculator.floor());
     document.querySelector('.ceil-btn').addEventListener('click', () => calculator.ceil());
 
- };
+    // Keyboard input
+    document.addEventListener('keydown', handleKeyPress.bind(calculator));
+};
 
 // initialize buttons
-initializeButtons('.btn');
+initializeButtons();
 calculator.setupDropdown("dropdownBtn", "dropdownMenu");
 calculator.setupDropdown("dropdownBtn1", "dropdownMenu1");
 setupHistoryToggle();
