@@ -1,6 +1,18 @@
 import { saveHistory } from './history.js';
 import { handleMC, handleMR, handleMS, handleMplusAndMinus } from './memory.js';
 
+const buttonselector = {
+    feSelector: 'fe-btn',
+    sinSelector: '.sin-btn',
+    cosSelector: '.cos-btn',
+    tanSelector: '.tan-btn',
+    mclearSelector: '.mc-btn',
+    mrecallSelector: '.mr-btn',
+    mplusSelector: '.mplus-btn',
+    mmniusSelector: '.mminus-btn',
+    mstoreSelectoe: '.ms-btn'
+}
+
 export class Calculator {
     constructor(screenId) {
         this.screen = document.getElementById(screenId);
@@ -15,10 +27,10 @@ export class Calculator {
         this.FEMode = false;
 
         // Constants for buttons
-        const FEButton = document.getElementById("fe-btn");
-        const sinBtn = document.querySelector(".sin-btn");
-        const cosBtn = document.querySelector(".cos-btn");
-        const tanBtn = document.querySelector(".tan-btn");
+        const FEButton = document.getElementById(buttonselector.feSelector);
+        const sinBtn = document.querySelector(buttonselector.sinSelector);
+        const cosBtn = document.querySelector(buttonselector.cosSelector);
+        const tanBtn = document.querySelector(buttonselector.tanSelector);
 
         if (!FEButton) {
             console.error('F-E Button not found!');
@@ -67,11 +79,11 @@ export class Calculator {
     
     initializeMemoryFunctions() {
         // Constants for memory function buttons
-        const mcBtn = document.querySelector('.mc-btn');
-        const mrBtn = document.querySelector('.mr-btn');
-        const msBtn = document.querySelector('.ms-btn');
-        const mplusBtn = document.querySelector('.mplus-btn');
-        const mminusBtn = document.querySelector('.mminus-btn');
+        const mcBtn = document.querySelector(buttonselector. mclearSelector);
+        const mrBtn = document.querySelector(buttonselector.mrecallSelector);
+        const msBtn = document.querySelector(buttonselector.mstoreSelectoe);
+        const mplusBtn = document.querySelector(buttonselector.mplusSelector);
+        const mminusBtn = document.querySelector(buttonselector.mminusSelector);
 
         mcBtn.addEventListener('click', () => handleMC());
         mrBtn.addEventListener('click', () => handleMR(this.screen));
