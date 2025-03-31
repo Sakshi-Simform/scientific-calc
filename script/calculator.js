@@ -30,30 +30,32 @@ export class Calculator {
         this.tanBtn = tanBtn;
     }
 
+
     appendValue(value) {
         const currentText = this.screen.textContent;
         const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
-
+    
+        // Check if the input exceeds the 20 character limit
         if (currentText.length >= 20) {
             alert("Cannot exceed more than 20 input values");
             return;
         }
-
+    
         if (this.calculationDone) {
             this.screen.textContent = '';
             this.calculationDone = false;
         }
-
+    
         if (operators.includes(lastChar) && operators.includes(value)) {
             return;
         }
-
+    
         if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\%\!/]/).pop().includes('.'))) {
             alert("Cannot enter multiple decimal values");
             return;
         }
-
+    
         if (this.screen.textContent === '0' && !operators.includes(value)) {
             this.screen.textContent = value;
         } else {
@@ -62,6 +64,7 @@ export class Calculator {
         this.screen.scrollTo(this.screen.offsetWidth, 0);
     }
 
+    
     initializeMemoryFunctions() {
         // Constants for memory function buttons
         const mcBtn = document.querySelector('.mc-btn');
@@ -306,56 +309,98 @@ export class Calculator {
     };
 
     toggleSecondPrimary(button) {
-        const isSecondMode = this.isSecondPrimary;
-        button.value = isSecondMode ? "second-function" : "primary-function";
-        button.ariaLabel = isSecondMode ? "Second Functions" : "Primary Functions";
-        button.textContent = isSecondMode ? "2nd" : "Primary";
-
-        this.sinBtn.value = this.sinBtn.ariaLabel = this.sinBtn.textContent = isSecondMode ? "sin" : "asin";
-        this.cosBtn.value = this.cosBtn.ariaLabel = this.cosBtn.textContent = isSecondMode ? "cos" : "acos";
-        this.tanBtn.value = this.tanBtn.ariaLabel = this.tanBtn.textContent = isSecondMode ? "tan" : "atan";
-
-        this.isSecondPrimary = !isSecondMode;
+        this.isSecondPrimary = !this.isSecondPrimary;
+ 
+        // Toggle the button text
+        button.textContent = this.isSecondPrimary ? "Primary" : "2nd";
+ 
+        // Define primary and secondary functions
+        const trigFunctions = [
+            { btn: this.sinBtn, primary: "sin(", secondary: "asin(" },
+            { btn: this.cosBtn, primary: "cos(", secondary: "acos(" },
+            { btn: this.tanBtn, primary: "tan(", secondary: "atan(" }
+        ];
+ 
+        // Update button text and event listeners
+        trigFunctions.forEach(({ btn, primary, secondary }) => {
+            if (btn) {
+                const functionText = this.isSecondPrimary ? secondary : primary;
+ 
+                // Update button text
+                btn.textContent = functionText.replace("(", ""); // Display without parentheses
+ 
+                // Remove all previous event listeners
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+ 
+                // Set the new button reference
+                if (btn.classList.contains("sin-btn")) this.sinBtn = newBtn;
+                if (btn.classList.contains("cos-btn")) this.cosBtn = newBtn;
+                if (btn.classList.contains("tan-btn")) this.tanBtn = newBtn;
+ 
+                // Add new event listener
+                newBtn.addEventListener("click", () => {
+                    this.appendValue(functionText);
+                });
+            }
+        });
     }
-
-    trigometry(func) {
-        let inputValue = parseFloat(this.screen.textContent);
+    trigonometry(func) {
+        let inputText = this.screen.textContent.trim();
+ 
+        // Extract numeric value
+        let inputMatch = inputText.match(/-?\d+(\.\d+)?/);
+        let inputValue = inputMatch ? parseFloat(inputMatch[0]) : NaN; 
+ 
         if (isNaN(inputValue)) {
             this.screen.textContent = "Error";
             return;
         }
-        let angle = this.isDegreeMode ? (inputValue * Math.PI) / 180 : inputValue; // Convert to radians if in degree mode
+ 
         let result;
-
+ 
         switch (func) {
-            case "sin":
-                result = "sin("
-                break;
-            case "cos":
-                result = "cos("
-                break;
-            case "tan":
-                result = "tan("
-                break;
             case "asin":
-                result = "asin(";
+                if (inputValue < -1 || inputValue > 1) {
+                    this.screen.textContent = "Error"; 
+                    return;
+                }
+                result = Math.asin(inputValue);
                 break;
             case "acos":
-                result = "acos(";
+                if (inputValue < -1 || inputValue > 1) {
+                    this.screen.textContent = "Error"; 
+                    return;
+                }
+                result = Math.acos(inputValue);
                 break;
             case "atan":
-                result = "atan(";
+                result = Math.atan(inputValue);
+                break;
+            case "sin":
+                result = Math.sin(this.isDegreeMode ? inputValue * (Math.PI / 180) : inputValue);
+                break;
+            case "cos":
+                result = Math.cos(this.isDegreeMode ? inputValue * (Math.PI / 180) : inputValue);
+                break;
+            case "tan":
+                result = Math.tan(this.isDegreeMode ? inputValue * (Math.PI / 180) : inputValue);
                 break;
             default:
                 this.screen.textContent = "Error";
                 return;
         }
-
-        // Display result 
-        this.screen.textContent = result;
-        saveHistory(`${func}(${inputValue}${this.isDegreeMode ? '°' : ' rad'}) = ${result}`);
+ 
+        // Convert radians to degrees if DEG mode is active
+        if (this.isDegreeMode && ["asin", "acos", "atan"].includes(func)) {
+            result = result * (180 / Math.PI);
+        }
+ 
+        // Display the result with up to 6 decimal places
+        this.screen.textContent = result.toFixed(6);
+        saveHistory(`${func}(${inputValue}${this.isDegreeMode ? "°" : " rad"}) = ${result.toFixed(6)}`);
     }
-
+ 
     setDegMode() {
         this.isDegreeMode = !this.isDegreeMode;
         this.updateDegButton();
@@ -377,3 +422,5 @@ export class Calculator {
         this.screen.textContent = "ceil("
     }
 }
+
+
