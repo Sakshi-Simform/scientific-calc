@@ -193,9 +193,9 @@ export class Calculator {
             Math.asindeg = (x) => (180 / Math.PI) * Math.asin(x);
             Math.acosdeg = (x) => (180 / Math.PI) * Math.acos(x);
             Math.atandeg = (x) => (180 / Math.PI) * Math.atan(x);
-            expression = expression.replace(/\basin\(/g, "Math.asin(");
-            expression = expression.replace(/\bacos\(/g, "Math.acos(");
-            expression = expression.replace(/\batan\(/g, "Math.atan(");
+            expression = expression.replace(/\basin\(/g, "Math.asindeg(");
+            expression = expression.replace(/\bacos\(/g, "Math.acosdeg(");
+            expression = expression.replace(/\batan\(/g, "Math.atandeg(");
         }
 
         try {
