@@ -10,7 +10,9 @@ export const saveHistory = (historyEntry) => {
         console.error("Error parsing history from localStorage", error);
     }
 
-    history.push(historyEntry);
+    // Only save the operation, not the result
+    const operation = historyEntry.split('=')[0].trim(); 
+    history.push(operation);
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 };
 
@@ -18,8 +20,17 @@ export const saveHistory = (historyEntry) => {
 export const clearHistory = () => {
     localStorage.removeItem(HISTORY_KEY);
     const historyList = document.getElementById('historyList');
+    const historyContainer = document.getElementById('historyContainer');
+
     if (historyList) {
         historyList.innerHTML = '';
+    }
+
+    if (historyContainer) {
+        // Show "No history available" message after clearing history
+        const noHistoryMessage = document.createElement('p');
+        noHistoryMessage.textContent = 'No history available';
+        historyList.appendChild(noHistoryMessage);
     }
 };
 
@@ -64,10 +75,10 @@ export const displayHistory = () => {
                 const li = document.createElement('li');
                 const div = document.createElement('div');
                 div.classList.add('history-item');
-                div.textContent = `${index + 1}. ${item}`;
+                div.textContent = item; // Display the operation (e.g., "40-20")
                 div.addEventListener('click', () => {
                     const screen = document.getElementById('screen');
-                    screen.textContent = item;
+                    screen.textContent = item; // Show the operation in the screen
                 });
                 li.appendChild(div);
                 ul.appendChild(li);
