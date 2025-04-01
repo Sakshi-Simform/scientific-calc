@@ -45,55 +45,48 @@ export class Calculator {
         const currentText = this.screen.textContent;
         const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
-        const NUMBERS_CHARACTER_LIMIT = 25;
-
+        const NUMBERS_CHARACTER_LIMIT = 20; // Set to 20 as per the new requirement
+    
         // If the calculation is done, clear the screen
         if (this.calculationDone) {
             this.screen.textContent = '';
             this.calculationDone = false;
         }
-
         // Prevent entering two operators consecutively
         if (operators.includes(lastChar) && operators.includes(value)) {
             return;
         }
-
         // Prevent multiple decimal points in the same number
         if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\%\!/]/).pop().includes('.'))) {
             alert("Cannot enter multiple decimal values");
             return;
         }
-
-        if (!isNaN(value)) {
-            let digitCount = currentText.length;
-            const displayedTxt = this.screen.textContent;
-
-            // Count digits and decimal points in the current input
-            for (let i = displayedTxt.length - 1; i >= 0; i--) {
-                if (!isNaN(displayedTxt[i]) || displayedTxt[i] === '.') {
-                    digitCount++;
-                    continue;
-                }
-                break;
+        // Count digits and decimal points in the current number segment
+        let digitCount = 0;
+        const displayedTxt = currentText.split(/[\+\-\×÷\!\%]/).pop(); // Get last number sequence
+    
+        for (let i = displayedTxt.length - 1; i >= 0; i--) {
+            if (!isNaN(displayedTxt[i]) || displayedTxt[i] === '.') {
+                digitCount++;
+                continue;
             }
-
-            // If the digit count exceeds the limit, alert the user
-            if (digitCount > NUMBERS_CHARACTER_LIMIT) {
-                alert(`Only ${NUMBERS_CHARACTER_LIMIT} digits long numbers are allowed.`);
-                return;
-            }
+            break;
         }
-
+        // If the digit count exceeds the limit and it's not an operator, alert the user
+        if (digitCount >= NUMBERS_CHARACTER_LIMIT && !operators.includes(value)) {
+            alert(`Only ${NUMBERS_CHARACTER_LIMIT} digits long numbers are allowed.`);
+            return;
+        }
         // Handle the screen text based on the value
         if (this.screen.textContent === '0' && !operators.includes(value)) {
             this.screen.textContent = value;
         } else {
             this.screen.textContent += value;
         }
-
         // Ensure the screen scrolls to the rightmost edge when text overflows
         this.screen.scrollTo(this.screen.offsetWidth, 0);
     }
+    
 
     initializeMemoryFunctions() {
         // Constants for memory function buttons
