@@ -1,7 +1,6 @@
 // memory-clear-btn
 export function handleMC() {
     localStorage.removeItem('calculationOutput');
-    console.log("Memory Cleared");
 }
 
 // memory-recall btn
@@ -11,13 +10,10 @@ export function handleMR(screen) {
     if (inputvalue === '0' || inputvalue === '') {
         inputvalue = '';
     }
-
     const memoryValue = localStorage.getItem('calculationOutput');
     if (memoryValue) {
         screen.textContent = inputvalue + memoryValue;
-    } else {
-        console.log("No memory value stored.");
-    }
+    } 
 }
 
 // memory-store-btn
