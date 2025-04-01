@@ -9,6 +9,7 @@ const buttonselector = {
     mclearSelector: '.mc-btn',
     mrecallSelector: '.mr-btn',
     mplusSelector: '.mplus-btn',
+    mstoreSelector: '.ms-btn'
 }
 
 export class Calculator {
@@ -40,51 +41,78 @@ export class Calculator {
         this.tanBtn = tanBtn;
     }
 
-
     appendValue(value) {
         const currentText = this.screen.textContent;
         const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
-    
+        const NUMBERS_CHARACTER_LIMIT = 20;
+
         // Check if the input exceeds the 20 character limit
-         if (currentText.length >= 25 && !operators.includes(value)) {
-        alert("Cannot exceed more than 20 input values");
-        return;
-    }
-    
+        if (currentText.length >= 25 && !operators.includes(value)) {
+            alert("Cannot exceed more than 20 input values");
+            return;
+        }
+
+        // If the calculation is done, clear the screen
         if (this.calculationDone) {
             this.screen.textContent = '';
             this.calculationDone = false;
         }
-    
+
+        // Prevent entering two operators consecutively
         if (operators.includes(lastChar) && operators.includes(value)) {
             return;
         }
-    
+
+        // Prevent multiple decimal points in the same number
         if (value === '.' && (lastChar === '.' || currentText.split(/[\+\-\*\%\!/]/).pop().includes('.'))) {
             alert("Cannot enter multiple decimal values");
             return;
         }
-    
+
+        if (!isNaN(value)) {
+            let digitCount = currentText.length;
+            const displayedTxt = this.screen.textContent;
+
+            // Count digits and decimal points in the current input
+            for (let i = displayedTxt.length - 1; i >= 0; i--) {
+                if (!isNaN(displayedTxt[i]) || displayedTxt[i] === '.') {
+                    digitCount++;
+                    continue;
+                }
+                break;
+            }
+
+            // If the digit count exceeds the limit, alert the user
+            if (digitCount > NUMBERS_CHARACTER_LIMIT) {
+                alert(`Only ${NUMBERS_CHARACTER_LIMIT} digits long numbers are allowed.`);
+                return;
+            }
+        }
+
+        // Handle the screen text based on the value
         if (this.screen.textContent === '0' && !operators.includes(value)) {
             this.screen.textContent = value;
         } else {
             this.screen.textContent += value;
         }
+
+        // Ensure the screen scrolls to the rightmost edge when text overflows
         this.screen.scrollTo(this.screen.offsetWidth, 0);
     }
-    
+
+
     initializeMemoryFunctions() {
         // Constants for memory function buttons
-        const mcBtn = document.querySelector(buttonselector. mclearSelector);
+        const mcBtn = document.querySelector(buttonselector.mclearSelector);
         const mrBtn = document.querySelector(buttonselector.mrecallSelector);
-        const msBtn = document.querySelector(buttonselector.mstoreSelectoe);
+        const msBtn = document.querySelector(buttonselector.mstoreSelector);
         const mplusBtn = document.querySelector('.mplus-btn');
         const mminusBtn = document.querySelector('.mminus-btn');
 
         mcBtn.addEventListener('click', () => handleMC());
         mrBtn.addEventListener('click', () => handleMR(this.screen));
-        msBtn.addEventListener('click', () =>
+        msBtn.addEventListener('click', () => 
             handleMS(this.screen, (input) => input.textContent)
         );
         mplusBtn.addEventListener('click', (event) =>
@@ -319,34 +347,34 @@ export class Calculator {
 
     toggleSecondPrimary(button) {
         this.isSecondPrimary = !this.isSecondPrimary;
- 
+
         // Toggle the button text
         button.textContent = this.isSecondPrimary ? "Primary" : "2nd";
- 
+
         // Define primary and secondary functions
         const trigFunctions = [
             { btn: this.sinBtn, primary: "sin(", secondary: "asin(" },
             { btn: this.cosBtn, primary: "cos(", secondary: "acos(" },
             { btn: this.tanBtn, primary: "tan(", secondary: "atan(" }
         ];
- 
+
         // Update button text and event listeners
         trigFunctions.forEach(({ btn, primary, secondary }) => {
             if (btn) {
                 const functionText = this.isSecondPrimary ? secondary : primary;
- 
+
                 // Update button text
                 btn.textContent = functionText.replace("(", ""); // Display without parentheses
- 
+
                 // Remove all previous event listeners
                 const newBtn = btn.cloneNode(true);
                 btn.parentNode.replaceChild(newBtn, btn);
- 
+
                 // Set the new button reference
                 if (btn.classList.contains("sin-btn")) this.sinBtn = newBtn;
                 if (btn.classList.contains("cos-btn")) this.cosBtn = newBtn;
                 if (btn.classList.contains("tan-btn")) this.tanBtn = newBtn;
- 
+
                 // Add new event listener
                 newBtn.addEventListener("click", () => {
                     this.appendValue(functionText);
@@ -356,29 +384,29 @@ export class Calculator {
     }
     trigonometry(func) {
         let inputText = this.screen.textContent.trim();
- 
+
         // Extract numeric value
         let inputMatch = inputText.match(/-?\d+(\.\d+)?/);
-        let inputValue = inputMatch ? parseFloat(inputMatch[0]) : NaN; 
- 
+        let inputValue = inputMatch ? parseFloat(inputMatch[0]) : NaN;
+
         if (isNaN(inputValue)) {
             this.screen.textContent = "Error";
             return;
         }
- 
+
         let result;
- 
+
         switch (func) {
             case "asin":
                 if (inputValue < -1 || inputValue > 1) {
-                    this.screen.textContent = "Error"; 
+                    this.screen.textContent = "Error";
                     return;
                 }
                 result = Math.asin(inputValue);
                 break;
             case "acos":
                 if (inputValue < -1 || inputValue > 1) {
-                    this.screen.textContent = "Error"; 
+                    this.screen.textContent = "Error";
                     return;
                 }
                 result = Math.acos(inputValue);
@@ -399,17 +427,17 @@ export class Calculator {
                 this.screen.textContent = "Error";
                 return;
         }
- 
+
         // Convert radians to degrees if DEG mode is active
         if (this.isDegreeMode && ["asin", "acos", "atan"].includes(func)) {
             result = result * (180 / Math.PI);
         }
- 
+
         // Display the result with up to 6 decimal places
         this.screen.textContent = result.toFixed(6);
         saveHistory(`${func}(${inputValue}${this.isDegreeMode ? "°" : " rad"}) = ${result.toFixed(6)}`);
     }
- 
+
     setDegMode() {
         this.isDegreeMode = !this.isDegreeMode;
         this.updateDegButton();
@@ -431,5 +459,3 @@ export class Calculator {
         this.screen.textContent = "ceil("
     }
 }
-
-
