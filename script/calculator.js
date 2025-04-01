@@ -45,13 +45,7 @@ export class Calculator {
         const currentText = this.screen.textContent;
         const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
-        const NUMBERS_CHARACTER_LIMIT = 20;
-
-        // Check if the input exceeds the 20 character limit
-        if (currentText.length >= 25 && !operators.includes(value)) {
-            alert("Cannot exceed more than 20 input values");
-            return;
-        }
+        const NUMBERS_CHARACTER_LIMIT = 25;
 
         // If the calculation is done, clear the screen
         if (this.calculationDone) {
@@ -100,7 +94,6 @@ export class Calculator {
         // Ensure the screen scrolls to the rightmost edge when text overflows
         this.screen.scrollTo(this.screen.offsetWidth, 0);
     }
-
 
     initializeMemoryFunctions() {
         // Constants for memory function buttons
