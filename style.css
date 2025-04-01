@@ -297,12 +297,15 @@ button:hover {
 /* List item div style */
 #historyList li div {
   text-align: left;
-  padding: 12px; 
+  padding: 12px;
   background-color: #e0e0e0;
   border-radius: 5px;
-  font-size: 16px;  
+  font-size: 16px;
+  max-width: 500px;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  white-space: normal;
 }
-
 
 #historyList li div:hover {
   background-color: #d0d0d0;
