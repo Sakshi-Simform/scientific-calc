@@ -282,7 +282,7 @@ button:hover {
 /* History list styles */
 #historyList {
   margin-top: 10px;
-  padding: 15px;
+  padding: 21px;
   max-height: 250px;
   overflow-y: auto;
   list-style-type: none;
