@@ -195,7 +195,6 @@ export class Calculator {
             .replace(/\bfloor\(/g, "Math.floor(")
             .replace(/(\d+)!/g, "this.factorial($1)")
             .replace(/\bceil\(/g, "Math.ceil(")
-        console.log(expression)
         if (!this.isDegreeMode) {
             expression = expression.replace('sin', 'Math.sin')
                 .replace('cos', 'Math.cos')
@@ -221,10 +220,7 @@ export class Calculator {
         }
 
         try {
-            console.log(eval(expression))
-
             const evaluatedResult = eval(expression);
-            console.log(evaluatedResult)
             this.screen.textContent = evaluatedResult;
             this.calculationDone = true;
             saveHistory(`${expression} = ${evaluatedResult}`);
@@ -261,7 +257,6 @@ export class Calculator {
         }
 
         dropdownBtn.addEventListener("click", (event) => {
-            console.log("dropdown")
             event.stopPropagation();
             dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block"; // Toggle visibility
         });
