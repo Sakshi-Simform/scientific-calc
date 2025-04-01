@@ -47,10 +47,10 @@ export class Calculator {
         const lastChar = currentText.slice(-1);
     
         // Check if the input exceeds the 20 character limit
-        if (currentText.length >= 20) {
-            alert("Cannot exceed more than 20 input values");
-            return;
-        }
+         if (currentText.length >= 25 && !operators.includes(value)) {
+        alert("Cannot exceed more than 20 input values");
+        return;
+    }
     
         if (this.calculationDone) {
             this.screen.textContent = '';
@@ -73,7 +73,6 @@ export class Calculator {
         }
         this.screen.scrollTo(this.screen.offsetWidth, 0);
     }
-
     
     initializeMemoryFunctions() {
         // Constants for memory function buttons
