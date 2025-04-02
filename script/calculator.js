@@ -101,10 +101,10 @@ export class Calculator {
             handleMS(this.screen, (input) => input.textContent)
         );
         mplusBtn.addEventListener('click', (event) =>
-            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
+            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent,'add')
         );
         mminusBtn.addEventListener('click', (event) =>
-            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent)
+            handleMplusAndMinus(event.target, this.screen, (input) => input.textContent,'subtract')
         );
     }
 
