@@ -28,7 +28,16 @@ export function handleMS(screen, getValueCallback) {
 }
 
 // memory-add/minus-btn
-export function handleMplusAndMinus(ref, screen, getValueCallback) {
+export function handleMplusAndMinus(ref, screen, getValueCallback, operation) {
     const memoryValue = parseFloat(localStorage.getItem('calculationOutput') || "0");
     const currentValue = parseFloat(getValueCallback(screen));
+
+    let newMemoryValue;
+
+    if (operation === 'add') {
+        newMemoryValue = memoryValue + currentValue;
+    } else if (operation === 'subtract') {
+        newMemoryValue = memoryValue - currentValue;
+    }
+    localStorage.setItem('calculationOutput', newMemoryValue.toString());
 }
