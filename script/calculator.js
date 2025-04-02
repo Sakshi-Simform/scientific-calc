@@ -11,6 +11,7 @@ const buttonselector = {
     mplusSelector: '.mplus-btn',
     mstoreSelector: '.ms-btn'
 }
+const NUMBERS_CHARACTER_LIMIT = 20; 
 
 export class Calculator {
     constructor(screenId) {
@@ -45,7 +46,6 @@ export class Calculator {
         const currentText = this.screen.textContent;
         const operators = ['+', '-', '×', '÷', '.', '!', '%'];
         const lastChar = currentText.slice(-1);
-        const NUMBERS_CHARACTER_LIMIT = 20; // Set to 20 as per the new requirement
     
         // If the calculation is done, clear the screen
         if (this.calculationDone) {
