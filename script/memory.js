@@ -31,7 +31,4 @@ export function handleMS(screen, getValueCallback) {
 export function handleMplusAndMinus(ref, screen, getValueCallback) {
     const memoryValue = parseFloat(localStorage.getItem('calculationOutput') || "0");
     const currentValue = parseFloat(getValueCallback(screen));
-
-    if (isNaN(memoryValue) || isNaN(currentValue)) {
-    }
 }
