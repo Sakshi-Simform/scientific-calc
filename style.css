@@ -18,7 +18,7 @@ body {
 /* calculator-content */
 .container {
   background-color: #f2f2f2;
-  max-height: 641px;
+  max-height: auto;
   padding: 0.5rem;
   border-radius: 1rem;
   max-width: 600px;
@@ -33,11 +33,11 @@ body {
   background-color: #dbdee0;
 }
 
-.num{
+.num {
   font-size: 1em;
 }
 
-.operator{
+.operator {
   font-size: 1.2em;
 }
 
@@ -78,18 +78,19 @@ body {
   text-align: right;
   border: none;
   background-color: #f2f2f2;
-  overflow:auto;
+  overflow: auto;
   white-space: nowrap;
   max-width: 360px;
 
 }
- #screen::-webkit-scrollbar{
-  display: none;
- }
 
- #screen{
+#screen::-webkit-scrollbar {
+  display: none;
+}
+
+#screen {
   scrollbar-width: none;
- }
+}
 
 /* calculator-button */
 button {
@@ -100,9 +101,10 @@ button:hover {
   cursor: pointer;
 }
 
-.c-btn{
+.c-btn {
   background-color: #f2f2f2;
 }
+
 /* function and trignometery buttons */
 .function-row {
   display: grid;
@@ -121,9 +123,10 @@ button:hover {
   display: flex;
   align-items: center;
   margin-left: 1.55em;
-  width: 106px;
+  width: 121px;
   margin-top: 0.5em;
   gap: 0.2em;
+  padding: 4px;
 }
 
 .trignometry {
@@ -134,9 +137,10 @@ button:hover {
   display: flex;
   align-items: center;
   margin-left: 1.55em;
-  width: 90px;
+  width: 121px;
   margin-top: 0.5em;
   gap: 0.2em;
+  padding: 4px;
 }
 
 .function {
@@ -231,11 +235,13 @@ button:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 10px;
 }
+
 .dropdown-item {
   padding: 8px 10px;
   cursor: pointer;
   margin-bottom: 5px;
 }
+
 .dropdown-item:hover {
   background: #f0f0f0;
 }
@@ -255,31 +261,70 @@ button:hover {
 /* History container styles */
 .history-container {
   display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #f1f1f1;
-  border-radius: 5px;
+  width: 350px;  
+  height: 300px; 
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  text-align: center;
 }
 
-
-.history-container.show {
-  display: block;
+.history-container::-webkit-scrollbar{
+  display: none;
 }
 
+/* History list styles */
 #historyList {
-  max-height: 40px;
-  overflow-y: auto;
   margin-top: 10px;
-  display: flex;
-  align-items: start;
-  flex-direction: column;
+  padding: 21px;
+  max-height: 250px;
+  overflow-y: auto;
+  list-style-type: none;
+  font-size: 18px;
 }
 
-#history-btn {
-  padding: 7px;
+/* List item styles */
+#historyList li {
+  margin: 10px 0; 
+}
+
+/* List item div style */
+#historyList li div {
+  text-align: left;
+  padding: 12px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  max-width: 500px;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+#historyList li div:hover {
+  background-color: #d0d0d0;
+}
+
+/* Clear history button style */
+.clear-history-btn {
+  background-color: #db3f3f; 
+  color: white; 
+  font-size: 14px; 
+  padding: 10px 20px; 
   border: none;
-  cursor: pointer;
-  margin-right: auto;
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-top: 15px; 
+  width: 80%; 
+  text-align: center; 
 }
 
-#toggleHistoryButton:hover {
-  background-color: #b7c7b7;
+.clear-history-btn:hover {
+  background-color: #e75858;
 }

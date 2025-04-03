@@ -16,13 +16,16 @@
     <main class="calculator">
         <div class="container">
 
-            <!-- Button to Show History -->
-            <button id="history-btn" aria-label="history-button"><i class="fa fa-history"></i></button>
+            <button id="toggleHistoryButton" aria-label="history-button"><i class="fa fa-history"></i></button>
 
-            <!-- History Container -->
+            <!-- History Container-->
             <div id="historyContainer" class="history-container">
-                <div id="historyList"></div>
+                <div id="historyList">
+                    <button class="clear-history-btn" aria-label="clear-btn"><i class="fa fa-trash"
+                        aria-hidden="true"></i></button>
+                </div>
             </div>
+
             <!-- Display Screen -->
             <div class="display" tabindex="0">
                 <span id="screen">0</span>
@@ -34,7 +37,7 @@
                     <div class="degree-row">
                         <button class="d-btn c-btn" aria-label="Degree Mode" id="deg-btn"><span
                                 class="bold-text">DEG</span></button>
-                        <button class="d-btn fe-btn c-btn" aria-label=""><span class="bold-text">F-E</span></button>
+                        <button class="d-btn fe-btn c-btn" value="f-e" id="fe-btn" aria-label="Default Notation Mode"><span class="bold-text">F-E</span></button>
                     </div>
 
                     <!-- Memory buttons -->
@@ -54,9 +57,9 @@
                             <img src="assets/images/drop-down.svg" class="drop-down" alt="drop-down arrow">
                         </button>
                         <div class="dropdown-menu" id="dropdownMenu">
-                            <div class="dropdown-item">sin</div>
-                            <div class="dropdown-item">cos</div>
-                            <div class="dropdown-item">tan</div>
+                            <div class="dropdown-item sin-btn" value="sin"> sin</div>
+                            <div class="dropdown-item cos-btn" value="cos">cos</div>
+                            <div class="dropdown-item tan-btn" value="tan">tan</div>
                         </div>
                     </div>
 
@@ -68,15 +71,15 @@
                             <img src="assets/images/drop-down.svg" class="drop-down" alt="drop-down arrow">
                         </button>
                         <div class="dropdown-menu" id="dropdownMenu1">
-                            <div class="dropdown-item">floor</div>
-                            <div class="dropdown-item">ceil</div>
+                            <div class="dropdown-item floor-btn">floor</div>
+                            <div class="dropdown-item ceil-btn">ceil</div>
                         </div>
                     </div>
 
                 </div>
                 <!-- Calculator Number and Function Buttons -->
                 <div class="calculator-btn">
-                    <button aria-label="toggle-cube-btn">2<sup>nd</sup></button>
+                    <button class="second-btn" aria-label="second-btn" value="second-function">2<sup>nd</sup></button>
                     <button class="pi-btn" aria-label="math pi">π</button>
                     <button class="eulars-btn" aria-label="Eular's function">e</button>
                     <button class="clear-btn" id="clear" aria-label="clear">C</button>
@@ -114,7 +117,7 @@
                     <button class="btn add-btn operator" aria-label="add symbol">+</button>
 
                     <button class="logn-btn" aria-label="natural logarithm">ln</button>
-                    <button class="num change-sign-btn operator" aria-label="toggle add and subtract">+/-</button>
+                    <button class="toggle-sign-btn operator" aria-label="toggle add and subtract">+/-</button>
                     <button class="btn num" aria-label="number 0"><span class="bold-text">0</span></button>
                     <button class="btn num operator" aria-label="decimal point">.</button>
                     <button id="equals" class="operator" aria-label="equal sign">=</button>
@@ -125,5 +128,4 @@
     <!-- Link to External JS File -->
     <script type="module" src="script/main.js"></script>
 </body>
-
 </html>
